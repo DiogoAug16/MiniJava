@@ -33,10 +33,10 @@ public class Main {
 
             GrammarParser.ProgramContext tree = parser.program();
 
-            System.out.println("Parsing completed successfully!");
+            System.out.println("Parsing completed successfully");
 
-            Executor executor = new Executor();
-            executor.visit(tree);
+            Interpreter interpreter = new Interpreter();
+            interpreter.visit(tree);
 
         } catch (IOException e) {
             System.err.println("File not found: " + e.getMessage());

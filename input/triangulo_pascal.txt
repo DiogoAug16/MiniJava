@@ -39,11 +39,11 @@ if (n > 0) then
 
             val = num / (den * den2);
 
-            write(val); // <-- novo: escreve na mesma linha (sem quebra)
+            write(val);
             j = j + 1;
         endwhile
 
-        writeln(""); // <-- novo: quebra linha depois de terminar a linha
+        writeln("");
         i = i + 1;
     endwhile
 else
