@@ -1,0 +1,7 @@
+int n;
+read(n);
+if (n > 0) then
+    write("OK");
+else
+    write("Erro");
+endif;

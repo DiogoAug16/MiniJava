@@ -1,0 +1,25 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+      {
+        "label": "ANTLR4: generate parsers",
+        "type": "shell",
+        "command": "java",
+        "args": [
+          "-Xmx500m",
+          "-cp",
+          "lib/antlr-4.13.1-complete.jar",  // Substitua com o caminho correto do seu JAR ANTLR
+          "org.antlr.v4.Tool",
+          "-Dlanguage=Java",
+          "-o",                 // Diretório de saída
+          "src/output",      // Caminho da pasta de saída (você pode mudar para a pasta
+          "src/GrammarCompiler.g4"  // Substitua com o caminho para sua gramática ANTLR
+        ],
+        "group": {
+          "kind": "build",
+          "isDefault": true
+        }
+      }
+    ]
+  }
+  
