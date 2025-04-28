@@ -46,9 +46,9 @@ src/
 ├── grammar/             # Arquivo Grammar.g4
 ├── Main.java            # Ponto de entrada do programa
 interpreter/    # Interpretador da linguagem
-│
+├── Interpreter.java
 exception/ # Tratamento de erros personalizados
-│
+├── CustomErrorListener.java
 lib/
 ├── antlr-4.13.1-complete.jar # Biblioteca ANTLR
 input/ # Pasta onde ficam os arquivos de teste para rodar o programa
