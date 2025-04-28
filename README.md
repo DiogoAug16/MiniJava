@@ -47,7 +47,7 @@ src/
 ├── Main.java            # Ponto de entrada do programa
 interpreter/    # Interpretador da linguagem
 │
-exception # Tratamento de erros personalizados
+exception/ # Tratamento de erros personalizados
 │
 lib/
 ├── antlr-4.13.1-complete.jar # Biblioteca ANTLR
