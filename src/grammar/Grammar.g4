@@ -1,5 +1,9 @@
 grammar Grammar;
 
+@header {
+package antlr;
+}
+
 program: declarations statements EOF;
 
 declarations: (declaration)*;
