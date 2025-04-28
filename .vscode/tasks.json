@@ -1,25 +1,19 @@
 {
-    "version": "2.0.0",
-    "tasks": [
-      {
-        "label": "ANTLR4: generate parsers",
-        "type": "shell",
-        "command": "java",
-        "args": [
-          "-Xmx500m",
-          "-cp",
-          "lib/antlr-4.13.1-complete.jar",  // Substitua com o caminho correto do seu JAR ANTLR
-          "org.antlr.v4.Tool",
-          "-Dlanguage=Java",
-          "-o",                 // Diretório de saída
-          "src/output",      // Caminho da pasta de saída (você pode mudar para a pasta
-          "src/GrammarCompiler.g4"  // Substitua com o caminho para sua gramática ANTLR
-        ],
-        "group": {
-          "kind": "build",
-          "isDefault": true
-        }
-      }
-    ]
-  }
-  
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Generate ANTLR and Compile Java",
+      "type": "shell",
+      "command": "cmd.exe",
+      "args": [
+        "/c",
+        "java -Xmx500m -cp lib/antlr-4.13.1-complete.jar org.antlr.v4.Tool -Dlanguage=Java -visitor -o src/output src/grammar/Grammar.g4 && javac -d output -cp lib/antlr-4.13.1-complete.jar src/output/*.java src/Main.java src/grammar/*.java"
+      ],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "problemMatcher": []
+    }
+  ]
+}
