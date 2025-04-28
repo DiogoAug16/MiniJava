@@ -1,19 +1,51 @@
 int n;
 int i;
 int j;
+int num;
+int den;
+int val;
+int k;
+int den2;
 
-read(n);
+n = 5;
 
 if (n > 0) then
     i = 0;
     while (i < n) do
         j = 0;
         while (j <= i) do
-            write(1);
+            // Calcula numerador
+            num = 1;
+            den = 1;
+            den2 = 1;
+            
+            k = 1;
+            while (k <= i) do
+                num = num * k;
+                k = k + 1;
+            endwhile
+
+            k = 1;
+            while (k <= j) do
+                den = den * k;
+                k = k + 1;
+            endwhile
+
+            k = 1;
+            while (k <= (i-j)) do
+                den2 = den2 * k;
+                k = k + 1;
+            endwhile
+
+            val = num / (den * den2);
+
+            write(val); // <-- novo: escreve na mesma linha (sem quebra)
             j = j + 1;
-        endwhile;
+        endwhile
+
+        writeln(""); // <-- novo: quebra linha depois de terminar a linha
         i = i + 1;
-    endwhile;
+    endwhile
 else
-    write("Erro: n tem que ser >= 1");
-endif;
+    writeln("Erro: n tem que ser >= 1");
+endif
