@@ -4,87 +4,101 @@ grammar Grammar;
 package antlr;
 }
 
-program: declarations statements EOF;
+program
+    : declarations statements EOF
+    ;
 
-declarations: (declaration)*;
+declarations
+    : (declaration)*
+    ;
 
 declaration
-      : 'int' ID ';'
-      | 'string' ID ';';
+    : 'int' ID ';'
+    | 'string' ID ';'
+    ;
 
 statements
-      : (statement)*;
+    : (statement)*
+    ;
 
 statement
-      : assignment
-      | read
-      | write
-      | ifStatement
-      | whileStatement;
+    : assignment
+    | read
+    | write
+    | ifStatement
+    | whileStatement
+    ;
 
-assignment: ID '=' expression ';';
+assignment
+    : ID '=' expression ';'
+    ;
 
 read
-      : 'read' '(' ID ')' ';'
-      ;
+    : 'read' '(' ID ')' ';'
+    ;
 
 write
-      : 'writeln' '(' expression ')' ';'
-      | 'write' '(' expression ')' ';'
-      ;
+    : 'writeln' '(' expression ')' ';'
+    | 'write' '(' expression ')' ';'
+    ;
 
 ifStatement
-      : 'if' '(' logicalExpression ')' 'then' statements ('else' statements)? 'endif'
-      ;
+    : 'if' '(' logicalExpression ')' 'then' block ('else' block)? 'endif'
+    ;
 
 whileStatement
-      : 'while' '(' logicalExpression ')' 'do' statements 'endwhile'
-      ;
+    : 'while' '(' logicalExpression ')' 'do' block 'endwhile'
+    ;
+
+block
+    : statement+
+    ;
 
 expression
-      : term (('+'|'-') term)* 
-      | STRING;
+    : term (('+'|'-') term)*
+    | STRING
+    ;
 
 term
-      : factor (('*'|'/') factor)*
-      ;
+    : factor (('*'|'/') factor)*
+    ;
 
 factor
-      : INT
-      | ID
-      | '(' expression ')'
-      ;
+    : INT
+    | ID
+    | '(' expression ')'
+    ;
 
 logicalExpression
-      : logicalFactor (('&&'|'||') logicalFactor)*
-      ;
+    : logicalFactor (('&&'|'||') logicalFactor)*
+    ;
 
 logicalFactor
-      : '!'? (comparison | '(' logicalExpression ')')
-      ;
+    : '!'? (comparison | '(' logicalExpression ')')
+    ;
 
 comparison
-      : expression ('==' | '>' | '<' | '>=' | '<=') expression
-      ;
+    : expression ('==' | '>' | '<' | '>=' | '<=') expression
+    ;
 
 // Tokens
 
 ID
-      : [a-zA-Z_] [a-zA-Z_0-9]*
-      ;
+    : [a-zA-Z_] [a-zA-Z_0-9]*
+    ;
 
 INT
-      : [0-9]+
-      ;
+    : [0-9]+
+    ;
 
 STRING
-      : '"' (~["\r\n])* '"'
-      ;
+    : '"' (~["\r\n])* '"'
+    ;
 
 WS
-      : [ \t\r\n]+ -> skip
-      ;
+    : [ \t\r\n]+ -> skip
+    ;
 
 COMMENT
-      : '//' ~[\r\n]* -> skip
-      ;
+    : '//' ~[\r\n]* -> skip
+    ;

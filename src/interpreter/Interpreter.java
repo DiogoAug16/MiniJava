@@ -60,20 +60,21 @@ public class Interpreter extends GrammarBaseVisitor<Object> {
     public Object visitIfStatement(GrammarParser.IfStatementContext ctx) {
         Boolean condition = (Boolean) visit(ctx.logicalExpression());
         if (condition) {
-            visit(ctx.statements(0));
-        } else if (ctx.statements().size() > 1) {
-            visit(ctx.statements(1));
+            visit(ctx.block(0));
+        } else if (ctx.block().size() > 1) {
+            visit(ctx.block(1));
         }
         return null;
     }
-
+    
     @Override
     public Object visitWhileStatement(GrammarParser.WhileStatementContext ctx) {
         while ((Boolean) visit(ctx.logicalExpression())) {
-            visit(ctx.statements());
+            visit(ctx.block());
         }
         return null;
     }
+    
 
     @Override
     public Object visitExpression(GrammarParser.ExpressionContext ctx) {
@@ -115,7 +116,14 @@ public class Interpreter extends GrammarBaseVisitor<Object> {
         if (ctx.INT() != null) {
             return Integer.parseInt(ctx.INT().getText());
         } else if (ctx.ID() != null) {
-            return memory.get(ctx.ID().getText());
+            String varName = ctx.ID().getText();
+            Object value = memory.get(varName);
+            
+            if (value == null) {
+                throw new RuntimeException("Variável '" + varName + "' não foi inicializada.");
+            }
+            
+            return value;
         } else {
             return visit(ctx.expression());
         }
