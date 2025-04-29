@@ -1,48 +1,26 @@
 int n;
 int i;
 int j;
-int num;
-int den;
 int val;
-int k;
-int den2;
 
-n = 5;
+n = 0;
 
 if (n > 0) then
-    i = 0;
+i = 0;
     while (i < n) do
         j = 0;
+        val = 1;
+        k = 0;
+        while (k < n - i - 1) do
+            write("  ");
+            k = k + 1;
+        endwhile
         while (j <= i) do
-            // Calcula numerador
-            num = 1;
-            den = 1;
-            den2 = 1;
-            
-            k = 1;
-            while (k <= i) do
-                num = num * k;
-                k = k + 1;
-            endwhile
-
-            k = 1;
-            while (k <= j) do
-                den = den * k;
-                k = k + 1;
-            endwhile
-
-            k = 1;
-            while (k <= (i-j)) do
-                den2 = den2 * k;
-                k = k + 1;
-            endwhile
-
-            val = num / (den * den2);
-
             write(val);
+            write("   ");
+            val = val * (i - j) / (j + 1);
             j = j + 1;
         endwhile
-
         writeln("");
         i = i + 1;
     endwhile

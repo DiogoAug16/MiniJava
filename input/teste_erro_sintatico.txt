@@ -1,0 +1,4 @@
+int numero
+if (numero > 0) then
+   numero = numero + 1;
+endif
