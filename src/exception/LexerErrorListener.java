@@ -8,7 +8,9 @@ public class LexerErrorListener extends BaseErrorListener {
     @Override
     public void syntaxError(Recognizer<?, ?> recognizer, Object offendingSymbol,
                             int line, int charPositionInLine, String msg, RecognitionException e) {
+                                
         String lexema = "";
+
         if (offendingSymbol instanceof Token token) {
             lexema = token.getText();
         } else if (msg.contains("token recognition error")) {
