@@ -13,7 +13,7 @@
 Execute o comando abaixo (ou use a task pronta do VSCode usando shift+ctrl+b):
 
 ```bash
-java -Xmx500m -cp "lib/antlr-4.13.1-complete.jar" org.antlr.v4.Tool -Dlanguage=Java -visitor -package antlr -o src/antlr src/grammar/Grammar.g4
+java -Xmx500m -cp "lib/antlr-4.13.1-complete.jar" org.antlr.v4.Tool -Dlanguage=Java -visitor -o src/antlr src/grammar/Grammar.g4
 ```
 
 - Isso gera os arquivos necessários dentro da pasta src/antlr.
