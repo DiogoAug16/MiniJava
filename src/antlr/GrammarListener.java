@@ -130,6 +130,26 @@ public interface GrammarListener extends ParseTreeListener {
 	 */
 	void exitExpression(GrammarParser.ExpressionContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link GrammarParser#concatenation}.
+	 * @param ctx the parse tree
+	 */
+	void enterConcatenation(GrammarParser.ConcatenationContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link GrammarParser#concatenation}.
+	 * @param ctx the parse tree
+	 */
+	void exitConcatenation(GrammarParser.ConcatenationContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link GrammarParser#additiveExpression}.
+	 * @param ctx the parse tree
+	 */
+	void enterAdditiveExpression(GrammarParser.AdditiveExpressionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link GrammarParser#additiveExpression}.
+	 * @param ctx the parse tree
+	 */
+	void exitAdditiveExpression(GrammarParser.AdditiveExpressionContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link GrammarParser#term}.
 	 * @param ctx the parse tree
 	 */

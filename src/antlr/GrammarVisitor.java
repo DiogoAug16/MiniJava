@@ -85,6 +85,18 @@ public interface GrammarVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitExpression(GrammarParser.ExpressionContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link GrammarParser#concatenation}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitConcatenation(GrammarParser.ConcatenationContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link GrammarParser#additiveExpression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAdditiveExpression(GrammarParser.AdditiveExpressionContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link GrammarParser#term}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
