@@ -13,7 +13,7 @@
 Execute o comando abaixo (ou use a task pronta do VSCode usando shift+ctrl+b):
 
 ```bash
-java -Xmx500m -cp "lib/antlr-4.13.1-complete.jar" org.antlr.v4.Tool -Dlanguage=Java -visitor -package antlr -o src/antlr src/grammar/Grammar.g4
+java -Xmx500m -cp "lib/antlr-4.13.1-complete.jar" org.antlr.v4.Tool -Dlanguage=Java -visitor -o src/antlr src/grammar/Grammar.g4
 ```
 
 - Isso gera os arquivos necessários dentro da pasta src/antlr.
@@ -23,7 +23,7 @@ java -Xmx500m -cp "lib/antlr-4.13.1-complete.jar" org.antlr.v4.Tool -Dlanguage=J
 Compile todos os arquivos .java manualmente caso você não tenha usado a task pronta:
 
 ```bash
-javac -cp ".;lib/antlr-4.13.1-complete.jar" -d output src/antlr/*.java src/Main.java src/grammar/*.java
+javac -d output -cp lib/antlr-4.13.1-complete.jar src/antlr/*.java src/Main.java src/exception/*.java src/interpreter/*.java
 ```
 
 - Os .class serão gerados dentro da pasta output/.
