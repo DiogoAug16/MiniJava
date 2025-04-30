@@ -1,7 +1,8 @@
 int n;
 read(n);
 if (n > 0) then
-    write("OK");
+    writeln("OK");
+    write("variavel valor: "+n);
 else
     write("Erro");
 endif

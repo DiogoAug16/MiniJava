@@ -55,6 +55,14 @@ block
     ;
 
 expression
+    : concatenation
+    ;
+
+concatenation
+    : additiveExpression ( '+' additiveExpression )*
+    ;
+
+additiveExpression
     : term (('+'|'-') term)*
     | STRING
     ;

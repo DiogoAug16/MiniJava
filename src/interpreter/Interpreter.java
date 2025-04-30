@@ -1,12 +1,14 @@
 package interpreter;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Scanner;
 
 import antlr.GrammarBaseVisitor;
 import antlr.GrammarParser;
 
 public class Interpreter extends GrammarBaseVisitor<Object> {
 
+    private final Scanner scanner = new Scanner(System.in);
     private Map<String, Object> memory = new HashMap<>();
 
     @Override
@@ -55,6 +57,18 @@ public class Interpreter extends GrammarBaseVisitor<Object> {
         return null;
     }
 
+    @Override
+    public Object visitRead(GrammarParser.ReadContext ctx) {
+        String varName = ctx.ID().getText();
+        String input = scanner.nextLine();
+        
+        if (memory.get(varName) instanceof Integer) {
+            memory.put(varName, Integer.parseInt(input));
+        } else {
+            memory.put(varName, input);
+        }
+        return null;
+    }
 
     @Override
     public Object visitIfStatement(GrammarParser.IfStatementContext ctx) {
@@ -75,27 +89,42 @@ public class Interpreter extends GrammarBaseVisitor<Object> {
         return null;
     }
     
-
     @Override
     public Object visitExpression(GrammarParser.ExpressionContext ctx) {
+        return visit(ctx.concatenation());
+    }
+    
+    @Override
+    public Object visitConcatenation(GrammarParser.ConcatenationContext ctx) {
+        Object result = visit(ctx.additiveExpression(0));
+        for (int i = 1; i < ctx.additiveExpression().size(); i++) {
+            Object next = visit(ctx.additiveExpression(i));
+            result = String.valueOf(result) + String.valueOf(next);
+        }
+        return result;
+    }    
+
+    @Override
+    public Object visitAdditiveExpression(GrammarParser.AdditiveExpressionContext ctx) {
+        
         if (ctx.STRING() != null) {
-            // String entre aspas
             return ctx.STRING().getText().replace("\"", "");
         }
-        
+    
         Object result = visit(ctx.term(0));
         for (int i = 1; i < ctx.term().size(); i++) {
             String op = ctx.getChild(2 * i - 1).getText();
-            Object nextTerm = visit(ctx.term(i));
+            Object next = visit(ctx.term(i));
+    
             if (op.equals("+")) {
-                result = ((Number) result).doubleValue() + ((Number) nextTerm).doubleValue();
+                result = ((Number) result).doubleValue() + ((Number) next).doubleValue();
             } else if (op.equals("-")) {
-                result = ((Number) result).doubleValue() - ((Number) nextTerm).doubleValue();
+                result = ((Number) result).doubleValue() - ((Number) next).doubleValue();
             }
         }
         return result;
     }
-
+    
     @Override
     public Object visitTerm(GrammarParser.TermContext ctx) {
         Object result = visit(ctx.factor(0));

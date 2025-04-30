@@ -3,7 +3,8 @@ int i;
 int j;
 int val;
 
-n = 0;
+writeln("Digite o valor para n: ");
+read(n);
 
 if (n > 0) then
 i = 0;
