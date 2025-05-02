@@ -43,11 +43,11 @@ write
     ;
 
 ifStatement
-    : 'if' '(' logicalExpression ')' 'then' block ('else' block)? 'endif'
+    : 'if' '(' logicalExpression ')' '{' block '}' ('else' '{' block '}')?
     ;
 
 whileStatement
-    : 'while' '(' logicalExpression ')' 'do' block 'endwhile'
+    : 'while' '(' logicalExpression ')' '{' block '}'
     ;
 
 block

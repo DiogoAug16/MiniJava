@@ -1,0 +1,13 @@
+int x;
+x = 0;
+
+while (x < 5) {
+    writeln(x);
+    x = x + 1;
+}
+
+if (x == 5) {
+    write("ok");
+} else {
+    write("erro");
+}

@@ -117,9 +117,9 @@ public class Interpreter extends GrammarBaseVisitor<Object> {
             Object next = visit(ctx.term(i));
     
             if (op.equals("+")) {
-                result = ((Number) result).doubleValue() + ((Number) next).doubleValue();
+                result = ((Number) result).intValue() + ((Number) next).intValue();
             } else if (op.equals("-")) {
-                result = ((Number) result).doubleValue() - ((Number) next).doubleValue();
+                result = ((Number) result).intValue() - ((Number) next).intValue();
             }
         }
         return result;
@@ -132,9 +132,9 @@ public class Interpreter extends GrammarBaseVisitor<Object> {
             String op = ctx.getChild(2 * i - 1).getText();
             Object nextFactor = visit(ctx.factor(i));
             if (op.equals("*")) {
-                result = ((Number) result).doubleValue() * ((Number) nextFactor).doubleValue();
+                result = ((Number) result).intValue() * ((Number) nextFactor).intValue();
             } else if (op.equals("/")) {
-                result = ((Number) result).doubleValue() / ((Number) nextFactor).doubleValue();
+                result = ((Number) result).intValue() / ((Number) nextFactor).intValue();
             }
         }
         return result;
@@ -184,8 +184,8 @@ public class Interpreter extends GrammarBaseVisitor<Object> {
 
     @Override
     public Object visitComparison(GrammarParser.ComparisonContext ctx) {
-        Double left = ((Number) visit(ctx.expression(0))).doubleValue();
-        Double right = ((Number) visit(ctx.expression(1))).doubleValue();
+        Integer left = ((Number) visit(ctx.expression(0))).intValue();
+        Integer right = ((Number) visit(ctx.expression(1))).intValue();
         String op = ctx.getChild(1).getText();
 
         switch (op) {

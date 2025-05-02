@@ -1,4 +1,3 @@
 int numero
-if (numero > 0) then
+if (numero > 0) 
    numero = numero + 1;
-endif

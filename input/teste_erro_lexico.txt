@@ -1,2 +1,2 @@
-int num@; 
-read(num);
+int a@; 
+read(a@);

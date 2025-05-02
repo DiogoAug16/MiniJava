@@ -14,9 +14,9 @@ import java.io.IOException;
 public class Main {
     public static void main(String[] args) {
         try {
+            GrammarLexer lexer = new GrammarLexer(CharStreams.fromFileName("input/teste_erro_lexico.txt"));
+            
             // Criação do lexer e parser
-            GrammarLexer lexer = new GrammarLexer(CharStreams.fromFileName("input/teste_erro_sintatico.txt"));
-
             lexer.removeErrorListeners();
             lexer.addErrorListener(new LexerErrorListener());
 
@@ -31,7 +31,7 @@ public class Main {
             GrammarParser.ProgramContext tree = parser.program();
 
             // Se chegou até aqui, quer dizer que o parsing foi bem-sucedido
-            System.out.println("Parsing completed successfully");
+            System.out.println("Parsing completado");
 
             // Interpretador para executar o código
             Interpreter interpreter = new Interpreter();
@@ -40,12 +40,12 @@ public class Main {
             // Criação da pasta "tokens" dentro de "output" caso não exista
             File outputDir = new File("output/tokens");
             if (!outputDir.exists()) {
-                outputDir.mkdirs();  // Cria a pasta "tokens" se não existir
+                outputDir.mkdirs();
             }
 
             // Criação do arquivo de saída para os tokens
             try (BufferedWriter writer = new BufferedWriter(new FileWriter("output/tokens/tokens.txt"))) {
-                tokens.fill();  // Preenche os tokens
+                tokens.fill();
 
                 // Itera sobre os tokens e escreve no arquivo
                 for (Token token : tokens.getTokens()) {
@@ -54,18 +54,17 @@ public class Main {
                     int linha = token.getLine();
                     int coluna = token.getCharPositionInLine() + 1;
 
-                    // Escreve o token no arquivo
                     writer.write("<" + tokenType + ", " + lexema + ", " + linha + ", " + coluna + ">");
-                    writer.newLine();  // Quebra de linha após cada token
+                    writer.newLine();
                 }
             } catch (IOException e) {
                 System.err.println("Erro ao gravar no arquivo: " + e.getMessage());
             }
 
         } catch (IOException e) {
-            System.err.println("File not found: " + e.getMessage());
+            System.err.println("Arquivo nao encontrado: " + e.getMessage());
         } catch (Exception e) {
-            System.err.println("Parsing error: " + e.getMessage());
+            System.err.println("Erro de parsing: " + e.getMessage());
         }
     }
 }
