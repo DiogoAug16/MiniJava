@@ -12,21 +12,6 @@ public class Interpreter extends GrammarBaseVisitor<Object> {
     private Map<String, Object> memory = new HashMap<>();
 
     @Override
-    public Object visitProgram(GrammarParser.ProgramContext ctx) {
-        visitDeclarations(ctx.declarations());
-        visitStatements(ctx.statements());
-        return null;
-    }
-
-    @Override
-    public Object visitDeclarations(GrammarParser.DeclarationsContext ctx) {
-        for (GrammarParser.DeclarationContext decl : ctx.declaration()) {
-            visit(decl);
-        }
-        return null;
-    }
-
-    @Override
     public Object visitDeclaration(GrammarParser.DeclarationContext ctx) {
         String varName = ctx.ID().getText();
         if (ctx.getText().startsWith("int")) {
@@ -49,7 +34,7 @@ public class Interpreter extends GrammarBaseVisitor<Object> {
     public Object visitWrite(GrammarParser.WriteContext ctx) {
         Object value = visit(ctx.expression());
 
-        if (ctx.getChild(0).getText().equals("write")) {
+        if (ctx.getChild(0).getText().equals("print")) {
             System.out.print(value + " ");
         } else {
             System.out.println(value);
@@ -87,11 +72,6 @@ public class Interpreter extends GrammarBaseVisitor<Object> {
             visit(ctx.block());
         }
         return null;
-    }
-    
-    @Override
-    public Object visitExpression(GrammarParser.ExpressionContext ctx) {
-        return visit(ctx.concatenation());
     }
     
     @Override
@@ -175,7 +155,7 @@ public class Interpreter extends GrammarBaseVisitor<Object> {
 
     @Override
     public Object visitLogicalFactor(GrammarParser.LogicalFactorContext ctx) {
-        if (ctx.getChildCount() == 2) { // ! (negacao)
+        if (ctx.getChildCount() == 2) {
             return !(Boolean) visit(ctx.getChild(1));
         } else {
             return visit(ctx.getChild(0));

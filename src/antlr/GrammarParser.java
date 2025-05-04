@@ -42,8 +42,8 @@ public class GrammarParser extends Parser {
 
 	private static String[] makeLiteralNames() {
 		return new String[] {
-			null, "'int'", "';'", "'string'", "'='", "'read'", "'('", "')'", "'writeln'", 
-			"'write'", "'if'", "'{'", "'}'", "'else'", "'while'", "'+'", "'-'", "'*'", 
+			null, "'int'", "';'", "'string'", "'='", "'scanf'", "'('", "')'", "'println'", 
+			"'print'", "'if'", "'{'", "'}'", "'else'", "'while'", "'+'", "'-'", "'*'", 
 			"'/'", "'&&'", "'||'", "'!'", "'=='", "'>'", "'<'", "'>='", "'<='"
 		};
 	}
