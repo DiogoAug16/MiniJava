@@ -2,12 +2,12 @@ int x;
 x = 0;
 
 while (x < 5) {
-    writeln(x);
+    println(x);
     x = x + 1;
 }
 
 if (x == 5) {
-    write("ok");
+    print("ok");
 } else {
-    write("erro");
+    print("erro");
 }

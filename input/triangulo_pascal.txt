@@ -3,28 +3,28 @@ int i;
 int j;
 int val;
 
-writeln("Digite o valor para n: ");
-read(n);
+println("Digite o valor para n: ");
+scanf(n);
 
-if (n > 0) then
+if (n > 0) {
 i = 0;
-    while (i < n) do
+    while (i < n) {
         j = 0;
         val = 1;
         k = 0;
-        while (k < n - i - 1) do
-            write("  ");
+        while (k < n - i - 1) {
+            print("  ");
             k = k + 1;
-        endwhile
-        while (j <= i) do
-            write(val);
-            write("   ");
+        }
+        while (j <= i) {
+            print(val);
+            print("   ");
             val = val * (i - j) / (j + 1);
             j = j + 1;
-        endwhile
-        writeln("");
+        }
+        println("");
         i = i + 1;
-    endwhile
-else
-    writeln("Erro: n tem que ser >= 1");
-endif
+    }
+} else {
+    println("Erro: n tem que ser >= 1");
+}

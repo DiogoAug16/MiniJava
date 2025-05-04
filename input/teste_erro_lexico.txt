@@ -1,2 +1,2 @@
 int a@; 
-read(a@);
+scanf(a#);
