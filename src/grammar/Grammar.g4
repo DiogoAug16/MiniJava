@@ -34,12 +34,12 @@ assignment
     ;
 
 read
-    : 'read' '(' ID ')' ';'
+    : 'scanf' '(' ID ')' ';'
     ;
 
 write
-    : 'writeln' '(' expression ')' ';'
-    | 'write' '(' expression ')' ';'
+    : 'println' '(' expression ')' ';'
+    | 'print' '(' expression ')' ';'
     ;
 
 ifStatement
