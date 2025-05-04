@@ -6,6 +6,8 @@
 
 - (Opcional) Visual Studio Code + extensões de Java + extensões do Antlr
 
+- Graphviz 12.2.1+ instalado
+
 ## 🚀 Como compilar e rodar
 
 ### 1. Gerar o Lexer, Parser, Listener e Visitor com ANTLR
