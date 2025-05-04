@@ -23,7 +23,7 @@ java -Xmx500m -cp "lib/antlr-4.13.1-complete.jar" org.antlr.v4.Tool -Dlanguage=J
 Compile todos os arquivos .java manualmente caso você não tenha usado a task pronta:
 
 ```bash
-javac -d output -cp lib/antlr-4.13.1-complete.jar src/antlr/*.java src/Main.java src/exception/*.java src/interpreter/*.java
+javac -d output -cp lib/antlr-4.13.1-complete.jar src/antlr/*.java src/Main.java src/exception/*.java src/interpreter/*.java src/astviewer/*.java src/dotgenerator/*.java
 ```
 
 - Os .class serão gerados dentro da pasta output/.
@@ -42,17 +42,22 @@ java -cp ".;lib/antlr-4.13.1-complete.jar;output" Main
 
 ```bash
 src/
-├── antlr/               # Lexer, Parser, Listener e Visitor gerados
-├── grammar/             # Arquivo Grammar.g4
-├── Main.java            # Ponto de entrada do programa
-interpreter/    # Interpretador da linguagem
-├── Interpreter.java
-exception/ # Tratamento de erros personalizados
+├── antlr/                  # Lexer, Parser, Listener e Visitor gerados
+├── grammar/  
+│   └── Grammar.g4          # Arquivo Grammar.g4
+├── astviewer/              # Visualizador da tree ast
+│   └── AstViewer.java
+├── dotgenerator/           # Gerador dot
+│   └── DotGenerator.java 
+├── Main.java               # Ponto de entrada do programa
+├── interpreter/            # Interpretador da linguagem
+│   └── Interpreter.java
+exception/                  # Tratamento de erros personalizados
 ├── CustomErrorListener.java
-lib/
-├── antlr-4.13.1-complete.jar # Biblioteca ANTLR
-input/ # Pasta onde ficam os arquivos de teste para rodar o programa
+lib/                        # Biblioteca ANTLR
+├── antlr-4.13.1-complete.jar 
+input/                      # Pasta onde ficam os arquivos de teste para rodar o programa
 │ 
-output/                  # Arquivos .class compilados
+output/                     # Arquivos .class compilados
 
 ```
