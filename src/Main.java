@@ -62,12 +62,6 @@ public class Main {
             // Parsing do código
             GrammarParser.ProgramContext tree = parser.program();
             
-            // if (parser.getNumberOfSyntaxErrors() > 0) {
-            //     System.err.println("Erros de sintaxe detectados. Parsing cancelado.");
-            //     scanner.close();
-            //     return;
-            // }         
-            
             if (tree.className == null) {
                 System.err.println("Erro de parsing: a árvore sintática está incompleta (className é null). Verifique se o código fonte está correto.");
                 scanner.close();
