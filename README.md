@@ -22,7 +22,7 @@ O objetivo principal deste projeto é ***desenvolver um compilador funcional*** 
 
 ### 1. Gerar o Lexer, Parser, Listener e Visitor com ANTLR
 
-Execute o comando abaixo (ou use a task pronta do VSCode usando shift+ctrl+b):
+Execute o comando abaixo:
 
 ```bash
 java -Xmx500m -cp "lib/antlr-4.13.1-complete.jar" org.antlr.v4.Tool -Dlanguage=Java -visitor -o src/com/antlrjavacompiler/antlr src/com/antlrjavacompiler/grammar/Grammar.g4
@@ -32,7 +32,7 @@ java -Xmx500m -cp "lib/antlr-4.13.1-complete.jar" org.antlr.v4.Tool -Dlanguage=J
 
 ### 2. Compilar o projeto
 
-Compile todos os arquivos .java manualmente caso você não tenha usado a task pronta:
+Compile todos os arquivos .java:
 
 ```bash
 mvn clean package ou mvn clean install
@@ -46,7 +46,7 @@ mvn clean install
 
 ### 3. Rodar o interpretador
 
-Execute o programa passando o classpath correto( Caso tenha a extensão java no vscode, é possivel rodar diretamente usando Run java):
+Execute o programa:
 
 ```bash
 mvn exec:java
