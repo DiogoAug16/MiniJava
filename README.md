@@ -28,24 +28,28 @@ Execute o comando abaixo (ou use a task pronta do VSCode usando shift+ctrl+b):
 java -Xmx500m -cp "lib/antlr-4.13.1-complete.jar" org.antlr.v4.Tool -Dlanguage=Java -visitor -o src/com/antlrjavacompiler/antlr src/com/antlrjavacompiler/grammar/Grammar.g4
 ```
 
-- Isso gera os arquivos necessários dentro da pasta src/antlr.
+- Isso gera os arquivos necessários dentro da pasta antlr.
 
 ### 2. Compilar o projeto
 
 Compile todos os arquivos .java manualmente caso você não tenha usado a task pronta:
 
 ```bash
-javac -d output -cp lib/antlr-4.13.1-complete.jar src/com/antlrjavacompiler/antlr/*.java src/com/antlrjavacompiler/Main.java src/com/antlrjavacompiler/exception/*.java src/com/antlrjavacompiler/interpreter/*.java src/com/antlrjavacompiler/ast/viewer/*.java src/com/antlrjavacompiler/ast/dot/*.java src/com/antlrjavacompiler/classcheck/*.java src/com/antlrjavacompiler/ast/image/*.java src/com/antlrjavacompiler/tokengenerator/*.java
+mvn clean package ou mvn clean install
+```
+ou
+```bash
+mvn clean install
 ```
 
-- Os .class serão gerados dentro da pasta output/.
+- Os .class serão gerados dentro da pasta target/.
 
 ### 3. Rodar o interpretador
 
 Execute o programa passando o classpath correto( Caso tenha a extensão java no vscode, é possivel rodar diretamente usando Run java):
 
 ```bash
-java -cp ".;lib/antlr-4.13.1-complete.jar;output" Main
+mvn exec:java
 ```
 
 - O interpretador irá ler o arquivo input/triangulo_pascal.txt (ou outro arquivo configurado) e interpretar os comandos.
