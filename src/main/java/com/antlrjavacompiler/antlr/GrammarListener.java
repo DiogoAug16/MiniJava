@@ -1,4 +1,4 @@
-// Generated from src/com/antlrjavacompiler/grammar/Grammar.g4 by ANTLR 4.13.1
+// Generated from src/main/java/com/antlrjavacompiler/grammar/Grammar.g4 by ANTLR 4.13.1
 
 package com.antlrjavacompiler.antlr;
 
