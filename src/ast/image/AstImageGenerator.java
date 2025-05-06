@@ -1,4 +1,4 @@
-package astimage;
+package ast.image;
 
 import java.io.File;
 import java.io.IOException;

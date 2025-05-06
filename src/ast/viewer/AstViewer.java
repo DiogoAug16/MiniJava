@@ -1,4 +1,4 @@
-package astviewer;
+package ast.viewer;
 
 import java.awt.Dimension;
 import java.awt.event.MouseWheelEvent;

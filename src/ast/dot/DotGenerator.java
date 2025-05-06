@@ -1,4 +1,4 @@
-package dotgenerator;
+package ast.dot;
 
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.TerminalNode;

@@ -2,9 +2,8 @@ import org.antlr.v4.runtime.*;
 
 import antlr.GrammarLexer;
 import antlr.GrammarParser;
-import astimage.AstImageGenerator;
-// import astviewer.AstViewer;
-import dotgenerator.DotGenerator;
+import ast.dot.DotGenerator;
+import ast.image.AstImageGenerator;
 import exception.LexerErrorListener;
 import exception.ParserErrorListener;
 import interpreter.Interpreter;
