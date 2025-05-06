@@ -3,6 +3,7 @@ import org.antlr.v4.runtime.*;
 import antlr.GrammarLexer;
 import antlr.GrammarParser;
 import astviewer.AstViewer;
+import dotgenerator.DotGenerator;
 import exception.LexerErrorListener;
 import exception.ParserErrorListener;
 import interpreter.Interpreter;
@@ -69,8 +70,9 @@ public class Main {
             }
 
             AstViewer astViewer = new AstViewer(tree, Arrays.asList(parser.getRuleNames()));
-            // astViewer.show(); // Teste astviewer
-            astViewer.exportDot("output/dot/ast.dot");
+            DotGenerator dotGen = new DotGenerator(tree);
+            astViewer.show();
+            dotGen.exportDot("output/dot/ast.dot");
 
             // Gera o arquivo png a partir do arquivo dot
             String dotFilePath = "output/dot/ast.dot";
