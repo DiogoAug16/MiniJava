@@ -2,6 +2,7 @@ import org.antlr.v4.runtime.*;
 
 import antlr.GrammarLexer;
 import antlr.GrammarParser;
+import astimage.AstImageGenerator;
 // import astviewer.AstViewer;
 import dotgenerator.DotGenerator;
 import exception.LexerErrorListener;
@@ -81,14 +82,7 @@ public class Main {
             // Gera o arquivo png a partir do arquivo dot
             String dotFilePath = "output/dot/ast.dot";
             String pngFilePath = "output/dot/pngs/ast.png";
-            ProcessBuilder processBuilder = new ProcessBuilder("dot", "-Tpng", dotFilePath, "-o", pngFilePath);
-            Process process = processBuilder.start();
-            int exitCode = process.waitFor();
-            if (exitCode == 0) {
-                System.out.println("Arquivo PNG gerado com sucesso: " + pngFilePath);
-            } else {
-                System.err.println("Erro ao gerar o arquivo PNG.");
-            }
+            AstImageGenerator.generatePngFromDot(dotFilePath, pngFilePath);
 
             // Interpretador para executar o código
             Interpreter interpreter = new Interpreter();
