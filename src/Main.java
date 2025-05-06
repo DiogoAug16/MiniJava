@@ -8,7 +8,7 @@ import dotgenerator.DotGenerator;
 import exception.LexerErrorListener;
 import exception.ParserErrorListener;
 import interpreter.Interpreter;
-import classcheck.ClassVerification;  // Importando a classe Verification
+import classcheck.ClassVerification;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -47,15 +47,15 @@ public class Main {
         System.out.println();
 
         try {
-            GrammarLexer lexer = new GrammarLexer(CharStreams.fromFileName(selectedFile.getPath()));
-
             // Criação do lexer e parser
+            GrammarLexer lexer = new GrammarLexer(CharStreams.fromFileName(selectedFile.getPath())); // gera os tokens a partir do codigo fonte
+
             lexer.removeErrorListeners();
             lexer.addErrorListener(new LexerErrorListener());
 
             CommonTokenStream tokens = new CommonTokenStream(lexer);
 
-            GrammarParser parser = new GrammarParser(tokens);
+            GrammarParser parser = new GrammarParser(tokens); // Consome os tokens do lexer e cria a ast
             parser.removeErrorListeners();
             parser.addErrorListener(new ParserErrorListener());
 
@@ -69,12 +69,6 @@ public class Main {
             }
 
             System.out.println("Parsing completado");
-
-            // Criação da pasta "dot" ou "pngs" dentro de "output" caso não exista
-            File outputDotDir = new File("output/dot/pngs");
-            if (!outputDotDir.exists()) {
-                outputDotDir.mkdirs();
-            }
 
             DotGenerator dotGen = new DotGenerator(tree);
             dotGen.exportDot("output/dot/ast.dot");
