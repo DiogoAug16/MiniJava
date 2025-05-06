@@ -1,4 +1,0 @@
-int numero
-if (numero > 0)
-   scanf(numero)
-   numero = numero + 1;

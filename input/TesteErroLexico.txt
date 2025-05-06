@@ -1,0 +1,4 @@
+public class TesteErroLexico {
+    int a@; 
+    scanf(a#);
+}

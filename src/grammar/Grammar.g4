@@ -5,7 +5,7 @@ package antlr;
 }
 
 program
-    : declarations statements EOF
+    : 'public' 'class' className=ID '{' declarations statements '}'EOF
     ;
 
 declarations

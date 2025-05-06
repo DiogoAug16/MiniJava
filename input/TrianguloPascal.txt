@@ -1,0 +1,32 @@
+public class TrianguloPascal {
+    int n;
+    int i;
+    int j;
+    int val;
+
+    println("Digite o valor para n: ");
+    scanf(n);
+
+    if (n > 0) {
+    i = 0;
+        while (i < n) {
+            j = 0;
+            val = 1;
+            k = 0;
+            while (k < n - i - 1) {
+                print("  ");
+                k = k + 1;
+            }
+            while (j <= i) {
+                print(val);
+                print("   ");
+                val = val * (i - j) / (j + 1);
+                j = j + 1;
+            }
+            println("");
+            i = i + 1;
+        }
+    } else {
+        println("Erro: n tem que ser >= 1");
+    }
+}

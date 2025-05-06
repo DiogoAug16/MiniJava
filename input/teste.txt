@@ -1,20 +1,22 @@
-int n;
-int a;
-int b;
-println("Digite o valor da variavel 'a'");
-scanf(a);
-println("Digite o valor da variavel 'b'(b tem que ser menor que 5)");
-scanf(b);
-println("Digite o valor da variavel 'n'(n tem que ser > 0)");
-scanf(n);
+public class Teste { 
+    int n;
+    int a;
+    int b;
+    println("Digite o valor da variavel 'a'");
+    scanf(a);
+    println("Digite o valor da variavel 'b'(b tem que ser menor que 5)");
+    scanf(b);
+    println("Digite o valor da variavel 'n'(n tem que ser > 0)");
+    scanf(n);
 
-if (n > 0 && b < 5 ) {
-    println("OK"); //teste comment
-    println("variavel 'n' valor: "+n);
-    println("divisao: "+a+"/"+b+"="+a/b);
-    println("multiplicacao: "+a+"*"+b+"="+a*b);
-    println("soma: "+a+"+"+b+"="+a+b);
-    print("subtracao: "+a+"-"+b+"="+a-b);
-} else {
-    print("Erro");
+    if (n > 0 && b < 5 ) {
+        println("OK"); //teste comment
+        println("variavel 'n' valor: "+n);
+        println("divisao: "+a+"/"+b+"="+a/b);
+        println("multiplicacao: "+a+"*"+b+"="+a*b);
+        println("soma: "+a+"+"+b+"="+a+b);
+        print("subtracao: "+a+"-"+b+"="+a-b);
+    } else {
+        print("Erro");
+    }
 }
