@@ -93,29 +93,37 @@ public class Main {
 ## <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Objects/File%20Folder.png" alt="File Folder" width="25" height="25" /> Estrutura de pastas
 
 ```bash
-src/
-├── antlr/                  # Lexer, Parser, Listener e Visitor gerados
-├── grammar/                # Pasta da gramatica do projeto
-│   └── Grammar.g4          
-├── astviewer/              # Visualizador da tree ast
-│   └── AstViewer.java
-├── dotgenerator/           # Gerador dot
-│   └── DotGenerator.java 
-├── Main.java               # Ponto de entrada do programa
-├── interpreter/            # Interpretador da linguagem
-│   └── Interpreter.java
-├── classcheck/             # Verificação da classe se o nome condiz com o nome do arquivo
-│   └── ClassVerification.java
-├── tokengenerator/         # Gerador de tokens já formatado
-│   └── TokenGenerator.java
-├── astimage/               # Gerador de imagem do ast a partir do dot
-│   └── AstImageGenerator.java
-exception/                  # Tratamento de erros personalizados
-├── CustomErrorListener.java
-lib/                        # Biblioteca ANTLR
-├── antlr-4.13.1-complete.jar 
-input/                      # Pasta onde ficam os arquivos de teste para rodar o programa
-│ 
-output/                     # Arquivos .class compilados
+├───.vscode
+├───input                       # Pasta onde ficam os arquivos de teste para rodar o programa
+├───lib                         # Biblioteca ANTLR
+├───output                      # Arquivos .class compilados
+│   ├───antlr
+│   ├───ast
+│   │   ├───dot
+│   │   ├───image
+│   │   └───viewer
+│   ├───classcheck
+│   ├───com
+│   │   └───antlrjavacompiler
+│   ├───dot
+│   │   └───pngs
+│   ├───exception
+│   ├───interpreter
+│   ├───tokengenerator
+│   └───tokens
+└───src
+    └───com
+        └───antlrjavacompiler
+            ├───antlr           # Lexer, Parser, Listener e Visitor gerados
+            ├───ast             # Pasta de arquivos que manipulam ast
+            │   ├───dot         # Gerador dot
+            │   ├───image       # Gerador de imagem do ast a partir do dot
+            │   └───viewer      # Visualizador da tree ast
+            ├───classcheck      # Verificação da classe se o nome condiz com o nome do arquivo
+            ├───exception       # Tratamento de erros personalizados
+            ├───grammar         # Pasta da gramatica do projeto
+            │   └───.antlr
+            ├───interpreter     # Interpretador da linguagem
+            └───tokengenerator  # Gerador de tokens já formatado
 
 ```
