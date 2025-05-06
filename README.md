@@ -35,7 +35,7 @@ java -Xmx500m -cp "lib/antlr-4.13.1-complete.jar" org.antlr.v4.Tool -Dlanguage=J
 Compile todos os arquivos .java:
 
 ```bash
-mvn clean package ou mvn clean install
+mvn clean package
 ```
 ou
 ```bash
