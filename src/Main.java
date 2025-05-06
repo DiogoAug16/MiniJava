@@ -69,9 +69,9 @@ public class Main {
                 outputDotDir.mkdirs();
             }
 
-            AstViewer astViewer = new AstViewer(tree, Arrays.asList(parser.getRuleNames()));
+            //AstViewer astViewer = new AstViewer(tree, Arrays.asList(parser.getRuleNames()));
             DotGenerator dotGen = new DotGenerator(tree);
-            astViewer.show();
+            //astViewer.show();
             dotGen.exportDot("output/dot/ast.dot");
 
             // Gera o arquivo png a partir do arquivo dot
