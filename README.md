@@ -8,6 +8,16 @@
 
 - Graphviz 12.2.1+ instalado
 
+## <img src="https://user-images.githubusercontent.com/74038190/216122041-518ac897-8d92-4c6b-9b3f-ca01dcaf38ee.png" alt="Lightning" height="30" /> Objetivo do Projeto
+
+O objetivo principal deste projeto é ***desenvolver um compilador funcional*** como requisito obrigatório para aprovação na disciplina de Compiladores. O compilador deve ser capaz de processar uma linguagem definida por uma gramática própria e realizar:
+
+- ***Analise lexica***: identificar tokens a partir de um arquivo-fonte, gerando saídas no formato `<Tipo do Token, Lexema, Linha, Coluna>`, com logs detalhados e mensagens claras de erro.
+- ***Analise sintatica***: validar a estrutura do código-fonte de acordo com a gramática definida, gerando uma `AST (árvore sintática abstrata)` e emitindo mensagens de erro intuitivas.
+- ***Execução de testes*** com programas como:
+    - Geração do **Triângulo de Pascal** (para testar laços e estruturas de repetição);
+    - **Classificação de triângulos** (para testar expressões lógicas e condicionais aninhadas).
+
 ## <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Travel%20and%20places/Rocket.png" alt="Rocket" width="25" height="25" /> Como compilar e rodar
 
 ### 1. Gerar o Lexer, Parser, Listener e Visitor com ANTLR
