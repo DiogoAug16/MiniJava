@@ -35,7 +35,7 @@ java -Xmx500m -cp "lib/antlr-4.13.1-complete.jar" org.antlr.v4.Tool -Dlanguage=J
 Compile todos os arquivos .java manualmente caso você não tenha usado a task pronta:
 
 ```bash
-javac -d output -cp lib/antlr-4.13.1-complete.jar src/com/antlrjavacompiler/antlr/*.java src/com/antlrjavacompiler/Main.java src/exception/*.java src/com/antlrjavacompiler/interpreter/*.java src/com/antlrjavacompiler/ast/viewer/*.java src/com/antlrjavacompiler/ast/dot/*.java src/com/antlrjavacompiler/classcheck/*.java src/com/antlrjavacompiler/ast/image/*.java src/com/antlrjavacompiler/tokengenerator/*.java
+javac -d output -cp lib/antlr-4.13.1-complete.jar src/com/antlrjavacompiler/antlr/*.java src/com/antlrjavacompiler/Main.java src/com/antlrjavacompiler/exception/*.java src/com/antlrjavacompiler/interpreter/*.java src/com/antlrjavacompiler/ast/viewer/*.java src/com/antlrjavacompiler/ast/dot/*.java src/com/antlrjavacompiler/classcheck/*.java src/com/antlrjavacompiler/ast/image/*.java src/com/antlrjavacompiler/tokengenerator/*.java
 ```
 
 - Os .class serão gerados dentro da pasta output/.
