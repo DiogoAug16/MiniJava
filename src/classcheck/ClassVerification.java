@@ -1,11 +1,13 @@
 package classcheck;
 
-import org.antlr.v4.runtime.tree.ParseTree;
+
+import antlr.GrammarParser.ProgramContext;
+
 import java.io.File;
 
-public class Verification {
+public class ClassVerification {
 
-    public static boolean verifyClassName(ParseTree tree, File selectedFile) {
+    public static boolean verifyClassName(ProgramContext tree, File selectedFile) {
         if (tree.className == null) {
             System.err.println("Erro de parsing: a árvore sintática está incompleta (className é null). Verifique se o código fonte está correto.");
             return false;

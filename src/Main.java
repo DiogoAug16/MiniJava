@@ -7,7 +7,7 @@ import dotgenerator.DotGenerator;
 import exception.LexerErrorListener;
 import exception.ParserErrorListener;
 import interpreter.Interpreter;
-import classcheck.Verification;  // Importando a classe Verification
+import classcheck.ClassVerification;  // Importando a classe Verification
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -62,7 +62,7 @@ public class Main {
             GrammarParser.ProgramContext tree = parser.program();
 
             // Verificação da classe usando a classe Verification
-            if (!Verification.verifyClassName(tree, selectedFile)) {
+            if (!ClassVerification.verifyClassName(tree, selectedFile)) {
                 scanner.close();
                 return;
             }

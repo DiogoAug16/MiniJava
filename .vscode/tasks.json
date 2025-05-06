@@ -7,7 +7,7 @@
       "command": "cmd.exe",
       "args": [
         "/c",
-        "java -Xmx500m -cp lib/antlr-4.13.1-complete.jar org.antlr.v4.Tool -Dlanguage=Java -visitor -o src/antlr src/grammar/Grammar.g4 && javac -d output -cp lib/antlr-4.13.1-complete.jar src/antlr/*.java src/Main.java src/exception/*.java src/interpreter/*.java src/astviewer/*.java src/dotgenerator/*.java"
+        "java -Xmx500m -cp lib/antlr-4.13.1-complete.jar org.antlr.v4.Tool -Dlanguage=Java -visitor -o src/antlr src/grammar/Grammar.g4 && javac -d output -cp lib/antlr-4.13.1-complete.jar src/antlr/*.java src/Main.java src/exception/*.java src/interpreter/*.java src/astviewer/*.java src/dotgenerator/*.java src/classcheck/*java"
       ],
       "group": {
         "kind": "build",
