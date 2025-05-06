@@ -1,0 +1,84 @@
+2025-05-03 23:14:20:539 grammar LogManager.java:25 before: (COMBINED_GRAMMAR Grammar (@ header {
+package antlr;
+}) (RULES (RULE program (BLOCK (ALT declarations statements EOF))) (RULE declarations (BLOCK (ALT (* (BLOCK (ALT declaration)))))) (RULE declaration (BLOCK (ALT (BLOCK (ALT 'int') (ALT 'string')) ID ';'))) (RULE statements (BLOCK (ALT (* (BLOCK (ALT statement)))))) (RULE statement (BLOCK (ALT assignment) (ALT read) (ALT write) (ALT ifStatement) (ALT whileStatement))) (RULE assignment (BLOCK (ALT ID '=' expression ';'))) (RULE read (BLOCK (ALT 'scanf' '(' ID ')' ';'))) (RULE write (BLOCK (ALT (BLOCK (ALT 'println') (ALT 'print')) '(' expression ')' ';'))) (RULE ifStatement (BLOCK (ALT 'if' '(' logicalExpression ')' '{' block '}' (? (BLOCK (ALT 'else' '{' block '}')))))) (RULE whileStatement (BLOCK (ALT 'while' '(' logicalExpression ')' '{' block '}'))) (RULE block (BLOCK (ALT (+ (BLOCK (ALT statement)))))) (RULE expression (BLOCK (ALT concatenation))) (RULE concatenation (BLOCK (ALT additiveExpression (* (BLOCK (ALT '+' additiveExpression)))))) (RULE additiveExpression (BLOCK (ALT term (* (BLOCK (ALT (BLOCK (ALT '+') (ALT '-')) term)))) (ALT STRING))) (RULE term (BLOCK (ALT factor (* (BLOCK (ALT (BLOCK (ALT '*') (ALT '/')) factor)))))) (RULE factor (BLOCK (ALT INT) (ALT ID) (ALT '(' expression ')'))) (RULE logicalExpression (BLOCK (ALT logicalFactor (* (BLOCK (ALT (BLOCK (ALT '&&') (ALT '||')) logicalFactor)))))) (RULE logicalFactor (BLOCK (ALT (? (BLOCK (ALT '!'))) (BLOCK (ALT comparison) (ALT '(' logicalExpression ')'))))) (RULE comparison (BLOCK (ALT expression (BLOCK (ALT '==') (ALT '>') (ALT '<') (ALT '>=') (ALT '<=')) expression))) (RULE ID (BLOCK (ALT [a-zA-Z_] (* (BLOCK (ALT [a-zA-Z_0-9])))))) (RULE INT (BLOCK (ALT (+ (BLOCK (ALT [0-9])))))) (RULE STRING (BLOCK (ALT '"' (* (BLOCK (ALT (~ (SET ["\r\n]))))) '"'))) (RULE WS (BLOCK (LEXER_ALT_ACTION (ALT (+ (BLOCK (ALT [ \t\r\n])))) skip))) (RULE COMMENT (BLOCK (LEXER_ALT_ACTION (ALT '//' (* (BLOCK (ALT (~ (SET [\r\n])))))) skip)))))
+2025-05-03 23:14:20:551 grammar LogManager.java:25 after: (COMBINED_GRAMMAR Grammar (@ header {
+package antlr;
+}) (RULES (RULE program (BLOCK (ALT declarations statements EOF))) (RULE declarations (BLOCK (ALT (* (BLOCK (ALT declaration)))))) (RULE declaration (BLOCK (ALT (SET 'int' 'string') ID ';'))) (RULE statements (BLOCK (ALT (* (BLOCK (ALT statement)))))) (RULE statement (BLOCK (ALT assignment) (ALT read) (ALT write) (ALT ifStatement) (ALT whileStatement))) (RULE assignment (BLOCK (ALT ID '=' expression ';'))) (RULE read (BLOCK (ALT 'scanf' '(' ID ')' ';'))) (RULE write (BLOCK (ALT (SET 'println' 'print') '(' expression ')' ';'))) (RULE ifStatement (BLOCK (ALT 'if' '(' logicalExpression ')' '{' block '}' (? (BLOCK (ALT 'else' '{' block '}')))))) (RULE whileStatement (BLOCK (ALT 'while' '(' logicalExpression ')' '{' block '}'))) (RULE block (BLOCK (ALT (+ (BLOCK (ALT statement)))))) (RULE expression (BLOCK (ALT concatenation))) (RULE concatenation (BLOCK (ALT additiveExpression (* (BLOCK (ALT '+' additiveExpression)))))) (RULE additiveExpression (BLOCK (ALT term (* (BLOCK (ALT (SET '+' '-') term)))) (ALT STRING))) (RULE term (BLOCK (ALT factor (* (BLOCK (ALT (SET '*' '/') factor)))))) (RULE factor (BLOCK (ALT INT) (ALT ID) (ALT '(' expression ')'))) (RULE logicalExpression (BLOCK (ALT logicalFactor (* (BLOCK (ALT (SET '&&' '||') logicalFactor)))))) (RULE logicalFactor (BLOCK (ALT (? (BLOCK (ALT '!'))) (BLOCK (ALT comparison) (ALT '(' logicalExpression ')'))))) (RULE comparison (BLOCK (ALT expression (SET '==' '>' '<' '>=' '<=') expression))) (RULE ID (BLOCK (ALT [a-zA-Z_] (* (BLOCK (ALT [a-zA-Z_0-9])))))) (RULE INT (BLOCK (ALT (+ (BLOCK (ALT [0-9])))))) (RULE STRING (BLOCK (ALT '"' (* (BLOCK (ALT (~ (SET ["\r\n]))))) '"'))) (RULE WS (BLOCK (LEXER_ALT_ACTION (ALT (+ (BLOCK (ALT [ \t\r\n])))) skip))) (RULE COMMENT (BLOCK (LEXER_ALT_ACTION (ALT '//' (* (BLOCK (ALT (~ (SET [\r\n])))))) skip)))))
+2025-05-03 23:14:20:568 grammar LogManager.java:25 after extract implicit lexer =(COMBINED_GRAMMAR Grammar (@ header {
+package antlr;
+}) (RULES (RULE program (BLOCK (ALT declarations statements EOF))) (RULE declarations (BLOCK (ALT (* (BLOCK (ALT declaration)))))) (RULE declaration (BLOCK (ALT (SET 'int' 'string') ID ';'))) (RULE statements (BLOCK (ALT (* (BLOCK (ALT statement)))))) (RULE statement (BLOCK (ALT assignment) (ALT read) (ALT write) (ALT ifStatement) (ALT whileStatement))) (RULE assignment (BLOCK (ALT ID '=' expression ';'))) (RULE read (BLOCK (ALT 'scanf' '(' ID ')' ';'))) (RULE write (BLOCK (ALT (SET 'println' 'print') '(' expression ')' ';'))) (RULE ifStatement (BLOCK (ALT 'if' '(' logicalExpression ')' '{' block '}' (? (BLOCK (ALT 'else' '{' block '}')))))) (RULE whileStatement (BLOCK (ALT 'while' '(' logicalExpression ')' '{' block '}'))) (RULE block (BLOCK (ALT (+ (BLOCK (ALT statement)))))) (RULE expression (BLOCK (ALT concatenation))) (RULE concatenation (BLOCK (ALT additiveExpression (* (BLOCK (ALT '+' additiveExpression)))))) (RULE additiveExpression (BLOCK (ALT term (* (BLOCK (ALT (SET '+' '-') term)))) (ALT STRING))) (RULE term (BLOCK (ALT factor (* (BLOCK (ALT (SET '*' '/') factor)))))) (RULE factor (BLOCK (ALT INT) (ALT ID) (ALT '(' expression ')'))) (RULE logicalExpression (BLOCK (ALT logicalFactor (* (BLOCK (ALT (SET '&&' '||') logicalFactor)))))) (RULE logicalFactor (BLOCK (ALT (? (BLOCK (ALT '!'))) (BLOCK (ALT comparison) (ALT '(' logicalExpression ')'))))) (RULE comparison (BLOCK (ALT expression (SET '==' '>' '<' '>=' '<=') expression)))))
+2025-05-03 23:14:20:568 grammar LogManager.java:25 lexer =(LEXER_GRAMMAR GrammarLexer (@ header {
+package antlr;
+}) (RULES (RULE T__0 (BLOCK (ALT 'int'))) (RULE T__1 (BLOCK (ALT 'string'))) (RULE T__2 (BLOCK (ALT ';'))) (RULE T__3 (BLOCK (ALT '='))) (RULE T__4 (BLOCK (ALT 'scanf'))) (RULE T__5 (BLOCK (ALT '('))) (RULE T__6 (BLOCK (ALT ')'))) (RULE T__7 (BLOCK (ALT 'println'))) (RULE T__8 (BLOCK (ALT 'print'))) (RULE T__9 (BLOCK (ALT 'if'))) (RULE T__10 (BLOCK (ALT '{'))) (RULE T__11 (BLOCK (ALT '}'))) (RULE T__12 (BLOCK (ALT 'else'))) (RULE T__13 (BLOCK (ALT 'while'))) (RULE T__14 (BLOCK (ALT '+'))) (RULE T__15 (BLOCK (ALT '-'))) (RULE T__16 (BLOCK (ALT '*'))) (RULE T__17 (BLOCK (ALT '/'))) (RULE T__18 (BLOCK (ALT '&&'))) (RULE T__19 (BLOCK (ALT '||'))) (RULE T__20 (BLOCK (ALT '!'))) (RULE T__21 (BLOCK (ALT '=='))) (RULE T__22 (BLOCK (ALT '>'))) (RULE T__23 (BLOCK (ALT '<'))) (RULE T__24 (BLOCK (ALT '>='))) (RULE T__25 (BLOCK (ALT '<='))) (RULE ID (BLOCK (ALT [a-zA-Z_] (* (BLOCK (ALT [a-zA-Z_0-9])))))) (RULE INT (BLOCK (ALT (+ (BLOCK (ALT [0-9])))))) (RULE STRING (BLOCK (ALT '"' (* (BLOCK (ALT (~ (SET ["\r\n]))))) '"'))) (RULE WS (BLOCK (LEXER_ALT_ACTION (ALT (+ (BLOCK (ALT [ \t\r\n])))) skip))) (RULE COMMENT (BLOCK (LEXER_ALT_ACTION (ALT '//' (* (BLOCK (ALT (~ (SET [\r\n])))))) skip)))))
+2025-05-03 23:14:20:663 action-translator LogManager.java:25 translate 
+package antlr;
+
+2025-05-03 23:14:20:709 semantics LogManager.java:25 tokens={EOF=-1, T__0=1, T__1=2, T__2=3, T__3=4, T__4=5, T__5=6, T__6=7, T__7=8, T__8=9, T__9=10, T__10=11, T__11=12, T__12=13, T__13=14, T__14=15, T__15=16, T__16=17, T__17=18, T__18=19, T__19=20, T__20=21, T__21=22, T__22=23, T__23=24, T__24=25, T__25=26, ID=27, INT=28, STRING=29, WS=30, COMMENT=31}
+2025-05-03 23:14:20:709 semantics LogManager.java:25 strings={'int'=1, 'string'=2, ';'=3, '='=4, 'scanf'=5, '('=6, ')'=7, 'println'=8, 'print'=9, 'if'=10, '{'=11, '}'=12, 'else'=13, 'while'=14, '+'=15, '-'=16, '*'=17, '/'=18, '&&'=19, '||'=20, '!'=21, '=='=22, '>'=23, '<'=24, '>='=25, '<='=26}
+2025-05-03 23:14:20:718 LL1 LogManager.java:25 
+DECISION 0 in rule declarations
+2025-05-03 23:14:20:718 LL1 LogManager.java:25 look=[{1..2}, {<EOF>, 5, 8..10, 14, 27}]
+2025-05-03 23:14:20:719 LL1 LogManager.java:25 LL(1)? true
+2025-05-03 23:14:20:719 LL1 LogManager.java:25 
+DECISION 1 in rule statements
+2025-05-03 23:14:20:719 LL1 LogManager.java:25 look=[{5, 8..10, 14, 27}, <EOF>]
+2025-05-03 23:14:20:719 LL1 LogManager.java:25 LL(1)? true
+2025-05-03 23:14:20:719 LL1 LogManager.java:25 
+DECISION 2 in rule statement
+2025-05-03 23:14:20:719 LL1 LogManager.java:25 look=[27, 5, {8..9}, 10, 14]
+2025-05-03 23:14:20:719 LL1 LogManager.java:25 LL(1)? true
+2025-05-03 23:14:20:719 LL1 LogManager.java:25 
+DECISION 3 in rule ifStatement
+2025-05-03 23:14:20:719 LL1 LogManager.java:25 look=[13, {<EOF>, 5, 8..10, 12, 14, 27}]
+2025-05-03 23:14:20:719 LL1 LogManager.java:25 LL(1)? true
+2025-05-03 23:14:20:719 LL1 LogManager.java:25 
+DECISION 4 in rule block
+2025-05-03 23:14:20:719 LL1 LogManager.java:25 look=[{5, 8..10, 14, 27}, 12]
+2025-05-03 23:14:20:719 LL1 LogManager.java:25 LL(1)? true
+2025-05-03 23:14:20:719 LL1 LogManager.java:25 
+DECISION 5 in rule concatenation
+2025-05-03 23:14:20:719 LL1 LogManager.java:25 look=[15, {3, 7, 19..20, 22..26}]
+2025-05-03 23:14:20:719 LL1 LogManager.java:25 LL(1)? true
+2025-05-03 23:14:20:719 LL1 LogManager.java:25 
+DECISION 6 in rule additiveExpression
+2025-05-03 23:14:20:719 LL1 LogManager.java:25 look=[{15..16}, {3, 7, 15, 19..20, 22..26}]
+2025-05-03 23:14:20:719 LL1 LogManager.java:25 LL(1)? false
+2025-05-03 23:14:20:720 LL1 LogManager.java:25 
+DECISION 7 in rule additiveExpression
+2025-05-03 23:14:20:720 LL1 LogManager.java:25 look=[{6, 27..28}, 29]
+2025-05-03 23:14:20:720 LL1 LogManager.java:25 LL(1)? true
+2025-05-03 23:14:20:720 LL1 LogManager.java:25 
+DECISION 8 in rule term
+2025-05-03 23:14:20:720 LL1 LogManager.java:25 look=[{17..18}, {3, 7, 15..16, 19..20, 22..26}]
+2025-05-03 23:14:20:720 LL1 LogManager.java:25 LL(1)? true
+2025-05-03 23:14:20:720 LL1 LogManager.java:25 
+DECISION 9 in rule factor
+2025-05-03 23:14:20:720 LL1 LogManager.java:25 look=[28, 27, 6]
+2025-05-03 23:14:20:720 LL1 LogManager.java:25 LL(1)? true
+2025-05-03 23:14:20:720 LL1 LogManager.java:25 
+DECISION 10 in rule logicalExpression
+2025-05-03 23:14:20:720 LL1 LogManager.java:25 look=[{19..20}, 7]
+2025-05-03 23:14:20:720 LL1 LogManager.java:25 LL(1)? true
+2025-05-03 23:14:20:720 LL1 LogManager.java:25 
+DECISION 11 in rule logicalFactor
+2025-05-03 23:14:20:720 LL1 LogManager.java:25 look=[21, {6, 27..29}]
+2025-05-03 23:14:20:720 LL1 LogManager.java:25 LL(1)? true
+2025-05-03 23:14:20:720 LL1 LogManager.java:25 
+DECISION 12 in rule logicalFactor
+2025-05-03 23:14:20:720 LL1 LogManager.java:25 look=[{6, 27..29}, 6]
+2025-05-03 23:14:20:720 LL1 LogManager.java:25 LL(1)? false
+2025-05-03 23:14:20:720 action-translator LogManager.java:25 translate 
+package antlr;
+
+2025-05-03 23:14:20:757 action-translator LogManager.java:25 translate 
+package antlr;
+
+2025-05-03 23:14:20:758 action-translator LogManager.java:25 translate 
+package antlr;
+
+2025-05-03 23:14:20:759 action-translator LogManager.java:25 translate 
+package antlr;
+
+2025-05-03 23:14:20:759 action-translator LogManager.java:25 translate 
+package antlr;
+

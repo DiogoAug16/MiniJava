@@ -13,8 +13,7 @@ declarations
     ;
 
 declaration
-    : 'int' ID ';'
-    | 'string' ID ';'
+    : ('int' | 'string') ID ';'
     ;
 
 statements
@@ -38,8 +37,7 @@ read
     ;
 
 write
-    : 'println' '(' expression ')' ';'
-    | 'print' '(' expression ')' ';'
+    : ('println' | 'print') '(' expression ')' ';'
     ;
 
 ifStatement
