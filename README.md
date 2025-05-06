@@ -45,8 +45,8 @@ java -cp ".;lib/antlr-4.13.1-complete.jar;output" Main
 ```bash
 src/
 ├── antlr/                  # Lexer, Parser, Listener e Visitor gerados
-├── grammar/  
-│   └── Grammar.g4          # Arquivo Grammar.g4
+├── grammar/                # Pasta da gramatica do projeto
+│   └── Grammar.g4          
 ├── astviewer/              # Visualizador da tree ast
 │   └── AstViewer.java
 ├── dotgenerator/           # Gerador dot
@@ -54,6 +54,8 @@ src/
 ├── Main.java               # Ponto de entrada do programa
 ├── interpreter/            # Interpretador da linguagem
 │   └── Interpreter.java
+├── classcheck/             # Verificação da classe se o nome condiz com o nome do arquivo
+│   └── ClassVerification.java
 exception/                  # Tratamento de erros personalizados
 ├── CustomErrorListener.java
 lib/                        # Biblioteca ANTLR
