@@ -20,6 +20,9 @@ public class DotGenerator {
         this.tree = tree;
     }
 
+    public DotGenerator() {
+    }
+
     public String toDot(ParseTree tree) {
         builder.append("digraph dotAst {\n");
         builder.append("  node [shape=box, style=filled, fillcolor=lightgray];\n");
@@ -56,7 +59,7 @@ public class DotGenerator {
     }
 
     public void exportDot(String filePath) {
-        DotGenerator dotGen = new DotGenerator(tree);
+        DotGenerator dotGen = new DotGenerator();
         String dot = dotGen.toDot(tree);
 
         File file = new File(filePath);
