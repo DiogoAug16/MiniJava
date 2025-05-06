@@ -1,4 +1,4 @@
-# 📦 Pré-requisitos
+# <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Objects/Package.png" alt="Package" width="25" height="25" /> Pré-requisitos
 
 - Java JDK 11+ instalado
 
@@ -8,7 +8,7 @@
 
 - Graphviz 12.2.1+ instalado
 
-## 🚀 Como compilar e rodar
+## <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Travel%20and%20places/Rocket.png" alt="Rocket" width="25" height="25" /> Como compilar e rodar
 
 ### 1. Gerar o Lexer, Parser, Listener e Visitor com ANTLR
 
@@ -40,7 +40,47 @@ java -cp ".;lib/antlr-4.13.1-complete.jar;output" Main
 
 - O interpretador irá ler o arquivo input/triangulo_pascal.txt (ou outro arquivo configurado) e interpretar os comandos.
 
-## 📂 Estrutura de pastas
+## <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Objects/Abacus.png" alt="Abacus" width="25" height="25" /> Expressões
+
+A linguagem suporta:
+
+- Concatenação de strings e números com `+`
+- Operações aritméticas (`+`, `-`, `*`, `/`)
+- Expressões lógicas (`&&`, `||`, `!`)
+- Comparações (`==`, `>`, `<`, `>=`, `<=`)
+
+## <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Symbols/Input%20Latin%20Uppercase.png" alt="Input Latin Uppercase" width="25" height="25" /> Tokens
+
+- **ID**: identificadores ([a-zA-Z_][a-zA-Z0-9_]*)
+- **INT**: inteiros ([0-9]+)
+- **STRING**: cadeias de caracteres entre aspas (`"texto"`)
+- **WS**: espaços e quebras de linha (ignorado)
+- **COMMENT**: comentários de linha iniciados com `//` (ignorados)
+
+## <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Objects/Pushpin.png" alt="Pushpin" width="25" height="25" /> Exemplo de Código
+
+```bash
+public class Main {
+    int x;
+    string nome;
+
+    scanf(x);
+    nome = "João";
+    x = x + 5;
+
+    if (x > 10) {
+        println(nome);
+    } else {
+        print("Valor baixo");
+    }
+
+    while (x < 20) {
+        x = x + 1;
+    }
+}
+```
+
+## <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Objects/File%20Folder.png" alt="File Folder" width="25" height="25" /> Estrutura de pastas
 
 ```bash
 src/
