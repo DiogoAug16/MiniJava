@@ -2,7 +2,7 @@ import org.antlr.v4.runtime.*;
 
 import antlr.GrammarLexer;
 import antlr.GrammarParser;
-import astviewer.AstViewer;
+// import astviewer.AstViewer;
 import dotgenerator.DotGenerator;
 import exception.LexerErrorListener;
 import exception.ParserErrorListener;
@@ -12,7 +12,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Arrays;
+// import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {
