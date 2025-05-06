@@ -97,33 +97,24 @@ public class Main {
 ├───input                       # Pasta onde ficam os arquivos de teste para rodar o programa
 ├───lib                         # Biblioteca ANTLR
 ├───output                      # Arquivos .class compilados
-│   ├───antlr
-│   ├───ast
-│   │   ├───dot
-│   │   ├───image
-│   │   └───viewer
-│   ├───classcheck
-│   ├───com
-│   │   └───antlrjavacompiler
 │   ├───dot
 │   │   └───pngs
-│   ├───exception
-│   ├───interpreter
-│   ├───tokengenerator
 │   └───tokens
 └───src
-    └───com
-        └───antlrjavacompiler
-            ├───antlr           # Lexer, Parser, Listener e Visitor gerados
-            ├───ast             # Pasta de arquivos que manipulam ast
-            │   ├───dot         # Gerador dot
-            │   ├───image       # Gerador de imagem do ast a partir do dot
-            │   └───viewer      # Visualizador da tree ast
-            ├───classcheck      # Verificação da classe se o nome condiz com o nome do arquivo
-            ├───exception       # Tratamento de erros personalizados
-            ├───grammar         # Pasta da gramatica do projeto
-            │   └───.antlr
-            ├───interpreter     # Interpretador da linguagem
-            └───tokengenerator  # Gerador de tokens já formatado
+    └───main
+        └───java
+            └───com
+                └───antlrjavacompiler
+                    ├───antlr           # Lexer, Parser, Listener e Visitor gerados
+                    ├───ast             # Pasta de arquivos que manipulam ast
+                    │   ├───dot         # Gerador dot
+                    │   ├───image       # Gerador de imagem do ast a partir do dot
+                    │   └───viewer      # Visualizador da tree ast
+                    ├───classcheck      # Verificação da classe se o nome condiz com o nome do arquivo
+                    ├───exception       # Tratamento de erros personalizados
+                    ├───grammar         # Pasta da gramatica do projeto
+                    │   └───.antlr
+                    ├───interpreter     # Interpretador da linguagem
+                    └───tokengenerator  # Gerador de tokens já formatado
 
 ```
