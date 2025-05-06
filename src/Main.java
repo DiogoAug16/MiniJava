@@ -8,11 +8,10 @@ import dotgenerator.DotGenerator;
 import exception.LexerErrorListener;
 import exception.ParserErrorListener;
 import interpreter.Interpreter;
+import tokengenerator.TokenGenerator;
 import classcheck.ClassVerification;
 
-import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 // import java.util.Arrays;
 import java.util.Scanner;
@@ -27,7 +26,7 @@ public class Main {
 
         if (files != null && files.length > 0) {
             for (int i = 0; i < files.length; i++) {
-                System.err.println("Arquivo encontrado: " + (i + 1) + "-" + files[i].getName());
+                System.out.println("Arquivo encontrado: " + (i + 1) + "-" + files[i].getName());
             }
         } else {
             System.out.println("Nenhum arquivo encontrado na pasta input.");
@@ -55,12 +54,15 @@ public class Main {
 
             CommonTokenStream tokens = new CommonTokenStream(lexer);
 
-            GrammarParser parser = new GrammarParser(tokens); // Consome os tokens do lexer e cria a ast
+            GrammarParser parser = new GrammarParser(tokens); // Consome os tokens do lexer
             parser.removeErrorListeners();
             parser.addErrorListener(new ParserErrorListener());
 
             // Parsing do código
-            GrammarParser.ProgramContext tree = parser.program();
+            GrammarParser.ProgramContext tree = parser.program(); // Cria ast
+
+            // AstViewer astViewer = new AstViewer(tree, Arrays.asList(parser.getRuleNames()));
+            // astViewer.show();
 
             // Verificação da classe usando a classe Verification
             if (!ClassVerification.verifyClassName(tree, selectedFile)) {
@@ -82,29 +84,8 @@ public class Main {
             Interpreter interpreter = new Interpreter();
             interpreter.visit(tree);
 
-            // Criação da pasta "tokens" dentro de "output" caso não exista
-            File outputDir = new File("output/tokens");
-            if (!outputDir.exists()) {
-                outputDir.mkdirs();
-            }
-
             // Criação do arquivo de saída para os tokens
-            try (BufferedWriter writer = new BufferedWriter(new FileWriter("output/tokens/tokens.txt"))) {
-                tokens.fill();
-
-                // Itera sobre os tokens e escreve no arquivo
-                for (Token token : tokens.getTokens()) {
-                    String tokenType = lexer.getVocabulary().getDisplayName(token.getType());
-                    String lexema = token.getText();
-                    int linha = token.getLine();
-                    int coluna = token.getCharPositionInLine() + 1;
-
-                    writer.write("<" + tokenType + ", " + lexema + ", " + linha + ", " + coluna + ">");
-                    writer.newLine();
-                }
-            } catch (IOException e) {
-                System.out.println("Erro ao gravar no arquivo: " + e.getMessage());
-            }
+            TokenGenerator.generate(tokens, "output/tokens/tokens.txt", lexer.getVocabulary());
 
         } catch (IOException e) {
             System.out.println("Arquivo nao encontrado: " + e.getMessage());

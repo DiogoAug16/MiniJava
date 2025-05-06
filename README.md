@@ -35,7 +35,7 @@ java -Xmx500m -cp "lib/antlr-4.13.1-complete.jar" org.antlr.v4.Tool -Dlanguage=J
 Compile todos os arquivos .java manualmente caso você não tenha usado a task pronta:
 
 ```bash
-javac -d output -cp lib/antlr-4.13.1-complete.jar src/antlr/*.java src/Main.java src/exception/*.java src/interpreter/*.java src/astviewer/*.java src/dotgenerator/*.java src/classcheck/*.java src/astimage/*.java
+javac -d output -cp lib/antlr-4.13.1-complete.jar src/antlr/*.java src/Main.java src/exception/*.java src/interpreter/*.java src/astviewer/*.java src/dotgenerator/*.java src/classcheck/*.java src/astimage/*.java src/tokengenerator/*.java
 ```
 
 - Os .class serão gerados dentro da pasta output/.
@@ -106,6 +106,10 @@ src/
 │   └── Interpreter.java
 ├── classcheck/             # Verificação da classe se o nome condiz com o nome do arquivo
 │   └── ClassVerification.java
+├── tokengenerator/         # Gerador de tokens já formatado
+│   └── TokenGenerator.java
+├── astimage/               # Gerador de imagem do ast a partir do dot
+│   └── AstImageGenerator.java
 exception/                  # Tratamento de erros personalizados
 ├── CustomErrorListener.java
 lib/                        # Biblioteca ANTLR
