@@ -1,4 +1,8 @@
-# <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Objects/Package.png" alt="Package" width="25" height="25" /> Pré-requisitos
+<p align="center">
+  <img src="docs/banner_minijava.png" alt="MiniJava banner" width="500"/>
+</p>
+
+## <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Objects/Package.png" alt="Package" width="25" height="25" /> Pré-requisitos
 
 - Java JDK 11+ instalado
 
