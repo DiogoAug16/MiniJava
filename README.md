@@ -1,6 +1,7 @@
 <br>
 
 
+
 <table align="center">
   <tr>
     <td align="center" style="padding-top: 20px;">
@@ -14,13 +15,20 @@
 
   <img src="https://img.shields.io/github/languages/top/DiogoAug16/MiniJava?color=blue&logo=java" alt="Top Language" />
 
-  <img src="https://img.shields.io/github/license/DiogoAug16/MiniJava" alt="License" />
+  ![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)
 
   <img src="https://img.shields.io/github/last-commit/DiogoAug16/MiniJava?color=brightgreen" alt="Last Commit" />
+
+  ![ANTLR](https://img.shields.io/badge/ANTLR-4.13.1-ff69b4?logo=antlr)
+
+  ![Graphviz](https://img.shields.io/badge/Graphviz-12.2.1-8A2BE2?logo=graphviz)
+
+  ![Java](https://img.shields.io/badge/Java-11%2B-blue?logo=java)
 
   <img src="https://img.shields.io/github/stars/DiogoAug16/MiniJava?style=social" alt="GitHub Stars" />
 
   <img src="https://img.shields.io/github/issues/DiogoAug16/MiniJava?color=orange" alt="GitHub Issues" />
+
 </p>
 
 ---
