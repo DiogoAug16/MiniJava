@@ -147,3 +147,6 @@ public class Main {
                     └───tokengenerator  # Gerador de tokens já formatado
 
 ```
+## <img src="https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Page%20facing%20up/3D/page_facing_up_3d.png" alt="File Folder" width="25" height="25" /> Licença
+
+Este projeto está licenciado sob a [Licença MIT](LICENSE).
