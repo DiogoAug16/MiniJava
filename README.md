@@ -1,10 +1,11 @@
 <table align="center">
   <tr>
-    <td align="center">
-      <img src="docs/banner_minijava.png" alt="MiniJava banner" width="600" height="auto" />
+    <td align="center" style="padding-top: 20px;">
+      <img src="docs/banner_minijava.png" alt="MiniJava banner" width="800" />
     </td>
   </tr>
 </table>
+
 
 ---
 
