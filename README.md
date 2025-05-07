@@ -3,7 +3,7 @@
 <table align="center">
   <tr>
     <td align="center" style="padding-top: 20px;">
-      <img src="docs/banner_minijava.png" alt="MiniJava banner" width="800" />
+      <img src="docs/banner_minijava.png" alt="MiniJava banner" width="700" height="auto" />
     </td>
   </tr>
 </table>
