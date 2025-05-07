@@ -1,6 +1,12 @@
-<p align="center">
-  <img src="docs/banner_minijava.png" alt="MiniJava banner" width="500" height="auto" />
-</p>
+<table align="center">
+  <tr>
+    <td align="center">
+      <img src="docs/banner_minijava.png" alt="MiniJava banner" width="600" height="auto" />
+    </td>
+  </tr>
+</table>
+
+---
 
 ## <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Objects/Package.png" alt="Package" width="25" height="25" /> Pré-requisitos
 
