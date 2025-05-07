@@ -1,5 +1,9 @@
 <br>
 
+<div align="center">
+  <img src="https://visitor-badge.laobi.icu/badge?page_id=DiogoAug16.DiogoAug16&"  />
+</div>
+
 <table align="center">
   <tr>
     <td align="center" style="padding-top: 20px;">
