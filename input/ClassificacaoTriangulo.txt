@@ -1,11 +1,11 @@
-public class ClassificacaoTriangulo {
+class ClassificacaoTriangulo {
     int a;
     int b;
     int c;
 
-    a = 1;
-    b = 1;
-    c = 3;
+    scanf(a);
+    scanf(b);
+    scanf(c);
 
     if (a > 0 && b > 0 && c > 0) {
         if (a + b > c && a + c > b && b + c > a) {

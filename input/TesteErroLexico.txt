@@ -1,4 +1,4 @@
-public class TesteErroLexico {
+class TesteErroLexico {
     int a@; 
     scanf(a#);
 }

@@ -5,7 +5,7 @@ package com.antlrjavacompiler.antlr;
 }
 
 program
-    : 'public' 'class' className=ID '{' declarations statements '}'EOF
+    : ('private')? 'class' className=ID '{' declarations statements '}'EOF //toda classe é publica por padrão
     ;
 
 declarations

@@ -1,4 +1,4 @@
-public class TesteErroSintatico {
+class TesteErroSintatico {
    int numero
    if (numero > 0)
       scanf(numero)

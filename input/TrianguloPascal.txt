@@ -1,4 +1,4 @@
-public class TrianguloPascal {
+class TrianguloPascal {
     int n;
     int i;
     int j;
