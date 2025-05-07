@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="docs/banner_minijava.png" alt="MiniJava banner" width="100%" />
+  <img src="docs/banner_minijava.png" alt="MiniJava banner" width="800" height="auto" />
 </p>
 
 ## <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Objects/Package.png" alt="Package" width="25" height="25" /> Pré-requisitos
