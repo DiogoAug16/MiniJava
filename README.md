@@ -1,8 +1,5 @@
 <br>
 
-<div align="center">
-  <img src="https://visitor-badge.laobi.icu/badge?page_id=DiogoAug16.DiogoAug16&"  />
-</div>
 
 <table align="center">
   <tr>
@@ -12,6 +9,19 @@
   </tr>
 </table>
 
+<p align="center">
+  <img src="https://visitor-badge.laobi.icu/badge?page_id=DiogoAug16.MiniJava" alt="Visitors" />
+
+  <img src="https://img.shields.io/github/languages/top/DiogoAug16/MiniJava?color=blue&logo=java" alt="Top Language" />
+
+  <img src="https://img.shields.io/github/license/DiogoAug16/MiniJava" alt="License" />
+
+  <img src="https://img.shields.io/github/last-commit/DiogoAug16/MiniJava?color=brightgreen" alt="Last Commit" />
+
+  <img src="https://img.shields.io/github/stars/DiogoAug16/MiniJava?style=social" alt="GitHub Stars" />
+
+  <img src="https://img.shields.io/github/issues/DiogoAug16/MiniJava?color=orange" alt="GitHub Issues" />
+</p>
 
 ---
 
