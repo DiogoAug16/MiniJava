@@ -1,4 +1,4 @@
-package exception;
+package com.antlrjavacompiler.exception;
 
 
 import org.antlr.v4.runtime.*;

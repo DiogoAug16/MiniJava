@@ -1,6 +1,6 @@
-// Generated from src/grammar/Grammar.g4 by ANTLR 4.13.1
+// Generated from src/main/java/com/antlrjavacompiler/grammar/Grammar.g4 by ANTLR 4.13.1
 
-package antlr;
+package com.antlrjavacompiler.antlr;
 
 import org.antlr.v4.runtime.tree.AbstractParseTreeVisitor;
 

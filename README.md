@@ -22,30 +22,34 @@ O objetivo principal deste projeto é ***desenvolver um compilador funcional*** 
 
 ### 1. Gerar o Lexer, Parser, Listener e Visitor com ANTLR
 
-Execute o comando abaixo (ou use a task pronta do VSCode usando shift+ctrl+b):
+Execute o comando abaixo:
 
 ```bash
-java -Xmx500m -cp "lib/antlr-4.13.1-complete.jar" org.antlr.v4.Tool -Dlanguage=Java -visitor -o src/antlr src/grammar/Grammar.g4
+java -Xmx500m -cp "lib/antlr-4.13.1-complete.jar" org.antlr.v4.Tool -Dlanguage=Java -visitor -o src/main/java/com/antlrjavacompiler/antlr src/main/java/com/antlrjavacompiler/grammar/Grammar.g4
 ```
 
-- Isso gera os arquivos necessários dentro da pasta src/antlr.
+- Isso gera os arquivos necessários dentro da pasta antlr.
 
 ### 2. Compilar o projeto
 
-Compile todos os arquivos .java manualmente caso você não tenha usado a task pronta:
+Compile todos os arquivos .java:
 
 ```bash
-javac -d output -cp lib/antlr-4.13.1-complete.jar src/antlr/*.java src/Main.java src/exception/*.java src/interpreter/*.java src/ast/viewer/*.java src/ast/dot/*.java src/classcheck/*.java src/ast/image/*.java src/tokengenerator/*.java
+mvn clean package
+```
+ou
+```bash
+mvn clean install
 ```
 
-- Os .class serão gerados dentro da pasta output/.
+- Os .class serão gerados dentro da pasta target/.
 
 ### 3. Rodar o interpretador
 
-Execute o programa passando o classpath correto( Caso tenha a extensão java no vscode, é possivel rodar diretamente usando Run java):
+Execute o programa:
 
 ```bash
-java -cp ".;lib/antlr-4.13.1-complete.jar;output" Main
+mvn exec:java
 ```
 
 - O interpretador irá ler o arquivo input/triangulo_pascal.txt (ou outro arquivo configurado) e interpretar os comandos.
@@ -93,29 +97,28 @@ public class Main {
 ## <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Objects/File%20Folder.png" alt="File Folder" width="25" height="25" /> Estrutura de pastas
 
 ```bash
-src/
-├── antlr/                  # Lexer, Parser, Listener e Visitor gerados
-├── grammar/                # Pasta da gramatica do projeto
-│   └── Grammar.g4          
-├── astviewer/              # Visualizador da tree ast
-│   └── AstViewer.java
-├── dotgenerator/           # Gerador dot
-│   └── DotGenerator.java 
-├── Main.java               # Ponto de entrada do programa
-├── interpreter/            # Interpretador da linguagem
-│   └── Interpreter.java
-├── classcheck/             # Verificação da classe se o nome condiz com o nome do arquivo
-│   └── ClassVerification.java
-├── tokengenerator/         # Gerador de tokens já formatado
-│   └── TokenGenerator.java
-├── astimage/               # Gerador de imagem do ast a partir do dot
-│   └── AstImageGenerator.java
-exception/                  # Tratamento de erros personalizados
-├── CustomErrorListener.java
-lib/                        # Biblioteca ANTLR
-├── antlr-4.13.1-complete.jar 
-input/                      # Pasta onde ficam os arquivos de teste para rodar o programa
-│ 
-output/                     # Arquivos .class compilados
+├───.vscode
+├───input                       # Pasta onde ficam os arquivos de teste para rodar o programa
+├───lib                         # Biblioteca ANTLR
+├───output                      # Arquivos .class compilados
+│   ├───dot
+│   │   └───pngs
+│   └───tokens
+└───src
+    └───main
+        └───java
+            └───com
+                └───antlrjavacompiler
+                    ├───antlr           # Lexer, Parser, Listener e Visitor gerados
+                    ├───ast             # Pasta de arquivos que manipulam ast
+                    │   ├───dot         # Gerador dot
+                    │   ├───image       # Gerador de imagem do ast a partir do dot
+                    │   └───viewer      # Visualizador da tree ast
+                    ├───classcheck      # Verificação da classe se o nome condiz com o nome do arquivo
+                    ├───exception       # Tratamento de erros personalizados
+                    ├───grammar         # Pasta da gramatica do projeto
+                    │   └───.antlr
+                    ├───interpreter     # Interpretador da linguagem
+                    └───tokengenerator  # Gerador de tokens já formatado
 
 ```

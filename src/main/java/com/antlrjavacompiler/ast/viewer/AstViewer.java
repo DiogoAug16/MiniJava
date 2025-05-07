@@ -1,4 +1,4 @@
-package ast.viewer;
+package com.antlrjavacompiler.ast.viewer;
 
 import java.awt.Dimension;
 import java.awt.event.MouseWheelEvent;
@@ -10,7 +10,7 @@ import javax.swing.JScrollPane;
 
 import org.antlr.v4.gui.TreeViewer;
 
-import antlr.GrammarParser.ProgramContext;
+import com.antlrjavacompiler.antlr.GrammarParser.ProgramContext;
 
 public class AstViewer {
     private ProgramContext tree;

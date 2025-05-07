@@ -1,9 +1,9 @@
-package ast.dot;
+package com.antlrjavacompiler.ast.dot;
 
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.TerminalNode;
 
-import antlr.GrammarParser.ProgramContext;
+import com.antlrjavacompiler.antlr.GrammarParser.ProgramContext;
 
 import java.io.BufferedWriter;
 import java.io.File;

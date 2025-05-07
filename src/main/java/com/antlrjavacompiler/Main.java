@@ -1,14 +1,16 @@
+package com.antlrjavacompiler;
+
 import org.antlr.v4.runtime.*;
 
-import antlr.GrammarLexer;
-import antlr.GrammarParser;
-import ast.dot.DotGenerator;
-import ast.image.AstImageGenerator;
-import exception.LexerErrorListener;
-import exception.ParserErrorListener;
-import interpreter.Interpreter;
-import tokengenerator.TokenGenerator;
-import classcheck.ClassVerification;
+import com.antlrjavacompiler.antlr.GrammarLexer;
+import com.antlrjavacompiler.antlr.GrammarParser;
+import com.antlrjavacompiler.ast.dot.DotGenerator;
+import com.antlrjavacompiler.ast.image.AstImageGenerator;
+import com.antlrjavacompiler.classcheck.ClassVerification;
+import com.antlrjavacompiler.exception.LexerErrorListener;
+import com.antlrjavacompiler.exception.ParserErrorListener;
+import com.antlrjavacompiler.interpreter.Interpreter;
+import com.antlrjavacompiler.tokengenerator.TokenGenerator;
 
 import java.io.File;
 import java.io.IOException;

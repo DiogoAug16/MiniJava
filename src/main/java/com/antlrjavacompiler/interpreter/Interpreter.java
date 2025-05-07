@@ -1,10 +1,10 @@
-package interpreter;
+package com.antlrjavacompiler.interpreter;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
-import antlr.GrammarBaseVisitor;
-import antlr.GrammarParser;
+import com.antlrjavacompiler.antlr.GrammarBaseVisitor;
+import com.antlrjavacompiler.antlr.GrammarParser;
 
 public class Interpreter extends GrammarBaseVisitor<Object> {
 
