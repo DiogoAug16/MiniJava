@@ -122,29 +122,44 @@ public class Main {
 ## <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Objects/File%20Folder.png" alt="File Folder" width="25" height="25" /> Estrutura de pastas
 
 ```bash
-├───.vscode
-├───input                       # Pasta onde ficam os arquivos de teste para rodar o programa
-├───lib                         # Biblioteca ANTLR
-├───output                      # Arquivos .class compilados
-│   ├───dot
-│   │   └───pngs
-│   └───tokens
-└───src
-    └───main
-        └───java
-            └───com
-                └───antlrjavacompiler
-                    ├───antlr           # Lexer, Parser, Listener e Visitor gerados
-                    ├───ast             # Pasta de arquivos que manipulam ast
-                    │   ├───dot         # Gerador dot
-                    │   ├───image       # Gerador de imagem do ast a partir do dot
-                    │   └───viewer      # Visualizador da tree ast
-                    ├───classcheck      # Verificação da classe se o nome condiz com o nome do arquivo
-                    ├───exception       # Tratamento de erros personalizados
-                    ├───grammar         # Pasta da gramatica do projeto
-                    │   └───.antlr
-                    ├───interpreter     # Interpretador da linguagem
-                    └───tokengenerator  # Gerador de tokens já formatado
+MiniJava
+├─ docs
+│  └─ banner_minijava.png
+├─ input                          # Pasta onde ficam os arquivos de teste para rodar o programa
+├─ output                         # Pasta output de arquivos gerados pelo programa como tokens, dots e imagens.     
+│  ├───dot
+│  │   └───pngs
+│  └───tokens
+├─ lib                            # Biblioteca ANTLR
+│  └─ antlr-4.13.1-complete.jar
+├─ LICENSE
+├─ pom.xml
+├─ README.md
+└─ src
+   └─ main
+      └─ java
+         └─ com
+            └─ antlrjavacompiler
+               ├─ antlr           # Lexer, Parser, Listener e Visitor gerados
+               ├─ ast             # Pasta de arquivos que manipulam ast
+               │  ├─ dot          # Gerador dot
+               │  │  └─ DotGenerator.java
+               │  ├─ image        # Gerador de imagem do ast a partir do dot
+               │  │  └─ AstImageGenerator.java
+               │  └─ viewer       # Visualizador da tree ast
+               │     └─ AstViewer.java
+               ├─ classcheck      # Verificação da classe se o nome condiz com o nome do arquivo
+               │  └─ ClassVerification.java
+               ├─ exception       # Tratamento de erros personalizados
+               │  ├─ LexerErrorListener.java
+               │  └─ ParserErrorListener.java
+               ├─ grammar         # Pasta da gramatica do projeto
+               │  └─ Grammar.g4
+               ├─ interpreter     # Interpretador da linguagem
+               │  └─ Interpreter.java
+               ├─ Main.java
+               └─ tokengenerator  # Gerador de tokens já formatado
+                  └─ TokenGenerator.java
 
 ```
 ## <img src="https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Page%20facing%20up/3D/page_facing_up_3d.png" alt="File Folder" width="25" height="25" /> Licença
