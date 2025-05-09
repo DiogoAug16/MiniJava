@@ -3,7 +3,7 @@
 <table align="center">
   <tr>
     <td align="center" style="padding-top: 20px;">
-      <img src="docs/banner_minijava.png" alt="MiniJava banner" width="700" height="auto" />
+      <img src="docs/images/banner_minijava.png" alt="MiniJava banner" width="700" height="auto" />
     </td>
   </tr>
 </table>
@@ -23,7 +23,7 @@
 
 ---
 
-## <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Objects/Package.png" alt="Package" width="25" height="25" /> Pré-requisitos
+## <img src="docs/images/Package2.gif" alt="Package" width="40" height="auto" /> Pré-requisitos
 
 - Java JDK 11+ instalado
 
@@ -33,7 +33,7 @@
 
 - Graphviz 12.2.1+ instalado
 
-## <img src="https://user-images.githubusercontent.com/74038190/216122041-518ac897-8d92-4c6b-9b3f-ca01dcaf38ee.png" alt="Lightning" height="30" /> Objetivo do Projeto
+## <img src="docs/images/Flame.png" alt="Lightning" height="30" /> Objetivo do Projeto
 
 O objetivo principal deste projeto é ***desenvolver um compilador funcional*** como requisito obrigatório para aprovação na disciplina de Compiladores. O compilador deve ser capaz de processar uma linguagem definida por uma gramática própria e realizar:
 
@@ -43,7 +43,7 @@ O objetivo principal deste projeto é ***desenvolver um compilador funcional*** 
     - Geração do **Triângulo de Pascal** (para testar laços e estruturas de repetição);
     - **Classificação de triângulos** (para testar expressões lógicas e condicionais aninhadas).
 
-## <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Travel%20and%20places/Rocket.png" alt="Rocket" width="25" height="25" /> Como compilar e rodar
+## <img src="docs/images/Rocket.png" alt="Rocket" width="25" height="25" /> Como compilar e rodar
 
 ### 1. Gerar o Lexer, Parser, Listener e Visitor com ANTLR
 
@@ -79,7 +79,7 @@ mvn exec:java
 
 - O interpretador irá ler o arquivo input/triangulo_pascal.txt (ou outro arquivo configurado) e interpretar os comandos.
 
-## <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Objects/Abacus.png" alt="Abacus" width="25" height="25" /> Expressões
+## <img src="docs/images/Abacus2.gif" alt="Abacus" width="40" height="auto" /> Expressões
 
 A linguagem suporta:
 
@@ -88,7 +88,7 @@ A linguagem suporta:
 - Expressões lógicas (`&&`, `||`, `!`)
 - Comparações (`==`, `>`, `<`, `>=`, `<=`)
 
-## <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Symbols/Input%20Latin%20Uppercase.png" alt="Input Latin Uppercase" width="25" height="25" /> Tokens
+## <img src="docs/images/Input Latin Uppercase.png" alt="Input Latin Uppercase" width="25" height="25" /> Tokens
 
 - **ID**: identificadores ([a-zA-Z_][a-zA-Z0-9_]*)
 - **INT**: inteiros ([0-9]+)
@@ -96,7 +96,7 @@ A linguagem suporta:
 - **WS**: espaços e quebras de linha (ignorado)
 - **COMMENT**: comentários de linha iniciados com `//` (ignorados)
 
-## <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Objects/Pushpin.png" alt="Pushpin" width="25" height="25" /> Exemplo de Código
+## <img src="docs/images/Pushpin.png" alt="Pushpin" width="25" height="25" /> Exemplo de Código
 
 ```bash
 public class Main {
@@ -119,7 +119,7 @@ public class Main {
 }
 ```
 
-## <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Objects/File%20Folder.png" alt="File Folder" width="25" height="25" /> Estrutura de pastas
+## <img src="docs/images/File Folder2.gif" alt="File Folder" width="40" height="auto" /> Estrutura de pastas
 
 ```bash
 MiniJava
@@ -162,6 +162,6 @@ MiniJava
                   └─ TokenGenerator.java
 
 ```
-## <img src="https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Page%20facing%20up/3D/page_facing_up_3d.png" alt="File Folder" width="25" height="25" /> Licença
+## <img src="docs/images/page_facing_up_3d.png" alt="File Folder" width="25" height="25" /> Licença
 
 Este projeto está licenciado sob a [Licença MIT](LICENSE).
