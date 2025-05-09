@@ -3,7 +3,7 @@
   <groupId>compilador_java</groupId>
   <artifactId>compilador_java</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-  <name>antlrjavacompiler</name>
+  <name>minijava</name>
   <build>
     <plugins>
       <plugin>
@@ -33,7 +33,7 @@
         <artifactId>exec-maven-plugin</artifactId>
         <version>3.5.0</version>
         <configuration>
-          <mainClass>com.antlrjavacompiler.Main</mainClass>
+          <mainClass>com.minijava.Main</mainClass>
         </configuration>
       </plugin>
     </plugins>

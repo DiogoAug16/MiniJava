@@ -1,9 +1,9 @@
-package com.antlrjavacompiler.classcheck;
+package com.minijava.classcheck;
 
 
 import java.io.File;
 
-import com.antlrjavacompiler.antlr.GrammarParser.ProgramContext;
+import com.minijava.antlr.GrammarParser.ProgramContext;
 
 public class ClassVerification {
 

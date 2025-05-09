@@ -1,7 +1,7 @@
 grammar Grammar;
 
 @header {
-package com.antlrjavacompiler.antlr;
+package com.minijava.antlr;
 }
 
 program

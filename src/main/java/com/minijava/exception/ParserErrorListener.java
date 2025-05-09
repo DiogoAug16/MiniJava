@@ -1,4 +1,4 @@
-package com.antlrjavacompiler.exception;
+package com.minijava.exception;
 
 import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.misc.IntervalSet;

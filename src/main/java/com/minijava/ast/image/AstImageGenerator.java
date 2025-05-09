@@ -1,4 +1,4 @@
-package com.antlrjavacompiler.ast.image;
+package com.minijava.ast.image;
 
 import java.io.File;
 import java.io.IOException;

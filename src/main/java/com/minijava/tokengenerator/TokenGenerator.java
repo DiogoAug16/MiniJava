@@ -1,4 +1,4 @@
-package com.antlrjavacompiler.tokengenerator;
+package com.minijava.tokengenerator;
 
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.Token;
