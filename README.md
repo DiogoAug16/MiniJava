@@ -50,7 +50,7 @@ O objetivo principal deste projeto é ***desenvolver um compilador funcional*** 
 Execute o comando abaixo:
 
 ```bash
-java -Xmx500m -cp "lib/antlr-4.13.1-complete.jar" org.antlr.v4.Tool -Dlanguage=Java -visitor -o src/main/java/com/antlrjavacompiler/antlr src/main/java/com/antlrjavacompiler/grammar/Grammar.g4
+java -Xmx500m -cp "lib/antlr-4.13.1-complete.jar" org.antlr.v4.Tool -Dlanguage=Java -visitor -o src/main/java/com/minijava/antlr src/main/java/com/minijava/grammar/Grammar.g4
 ```
 
 - Isso gera os arquivos necessários dentro da pasta antlr.
@@ -99,7 +99,7 @@ A linguagem suporta:
 ## <img src="docs/images/Pushpin.png" alt="Pushpin" width="25" height="25" /> Exemplo de Código
 
 ```bash
-public class Main {
+class Main {
     int x;
     string nome;
 
