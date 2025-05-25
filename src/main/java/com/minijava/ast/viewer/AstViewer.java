@@ -10,7 +10,7 @@ import javax.swing.JScrollPane;
 
 import org.antlr.v4.gui.TreeViewer;
 
-import com.minijava.antlr.GrammarParser.ProgramContext;
+import com.minijava.antlr.MiniJavaParser.ProgramContext;
 
 public class AstViewer {
     private ProgramContext tree;

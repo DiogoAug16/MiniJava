@@ -1,4 +1,4 @@
-// Generated from src/main/java/com/minijava/grammar/Grammar.g4 by ANTLR 4.13.1
+// Generated from src/main/java/com/minijava/grammar/MiniJava.g4 by ANTLR 4.13.1
 
 package com.minijava.antlr;
 
@@ -8,240 +8,240 @@ import org.antlr.v4.runtime.tree.ErrorNode;
 import org.antlr.v4.runtime.tree.TerminalNode;
 
 /**
- * This class provides an empty implementation of {@link GrammarListener},
+ * This class provides an empty implementation of {@link MiniJavaListener},
  * which can be extended to create a listener which only needs to handle a subset
  * of the available methods.
  */
 @SuppressWarnings("CheckReturnValue")
-public class GrammarBaseListener implements GrammarListener {
+public class MiniJavaBaseListener implements MiniJavaListener {
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterProgram(GrammarParser.ProgramContext ctx) { }
+	@Override public void enterProgram(MiniJavaParser.ProgramContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitProgram(GrammarParser.ProgramContext ctx) { }
+	@Override public void exitProgram(MiniJavaParser.ProgramContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterDeclarations(GrammarParser.DeclarationsContext ctx) { }
+	@Override public void enterDeclarations(MiniJavaParser.DeclarationsContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitDeclarations(GrammarParser.DeclarationsContext ctx) { }
+	@Override public void exitDeclarations(MiniJavaParser.DeclarationsContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterDeclaration(GrammarParser.DeclarationContext ctx) { }
+	@Override public void enterDeclaration(MiniJavaParser.DeclarationContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitDeclaration(GrammarParser.DeclarationContext ctx) { }
+	@Override public void exitDeclaration(MiniJavaParser.DeclarationContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterStatements(GrammarParser.StatementsContext ctx) { }
+	@Override public void enterStatements(MiniJavaParser.StatementsContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitStatements(GrammarParser.StatementsContext ctx) { }
+	@Override public void exitStatements(MiniJavaParser.StatementsContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterStatement(GrammarParser.StatementContext ctx) { }
+	@Override public void enterStatement(MiniJavaParser.StatementContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitStatement(GrammarParser.StatementContext ctx) { }
+	@Override public void exitStatement(MiniJavaParser.StatementContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterAssignment(GrammarParser.AssignmentContext ctx) { }
+	@Override public void enterAssignment(MiniJavaParser.AssignmentContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitAssignment(GrammarParser.AssignmentContext ctx) { }
+	@Override public void exitAssignment(MiniJavaParser.AssignmentContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterRead(GrammarParser.ReadContext ctx) { }
+	@Override public void enterRead(MiniJavaParser.ReadContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitRead(GrammarParser.ReadContext ctx) { }
+	@Override public void exitRead(MiniJavaParser.ReadContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterWrite(GrammarParser.WriteContext ctx) { }
+	@Override public void enterWrite(MiniJavaParser.WriteContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitWrite(GrammarParser.WriteContext ctx) { }
+	@Override public void exitWrite(MiniJavaParser.WriteContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterIfStatement(GrammarParser.IfStatementContext ctx) { }
+	@Override public void enterIfStatement(MiniJavaParser.IfStatementContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitIfStatement(GrammarParser.IfStatementContext ctx) { }
+	@Override public void exitIfStatement(MiniJavaParser.IfStatementContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterWhileStatement(GrammarParser.WhileStatementContext ctx) { }
+	@Override public void enterWhileStatement(MiniJavaParser.WhileStatementContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitWhileStatement(GrammarParser.WhileStatementContext ctx) { }
+	@Override public void exitWhileStatement(MiniJavaParser.WhileStatementContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterBlock(GrammarParser.BlockContext ctx) { }
+	@Override public void enterBlock(MiniJavaParser.BlockContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitBlock(GrammarParser.BlockContext ctx) { }
+	@Override public void exitBlock(MiniJavaParser.BlockContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterExpression(GrammarParser.ExpressionContext ctx) { }
+	@Override public void enterExpression(MiniJavaParser.ExpressionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitExpression(GrammarParser.ExpressionContext ctx) { }
+	@Override public void exitExpression(MiniJavaParser.ExpressionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterConcatenation(GrammarParser.ConcatenationContext ctx) { }
+	@Override public void enterConcatenation(MiniJavaParser.ConcatenationContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitConcatenation(GrammarParser.ConcatenationContext ctx) { }
+	@Override public void exitConcatenation(MiniJavaParser.ConcatenationContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterAdditiveExpression(GrammarParser.AdditiveExpressionContext ctx) { }
+	@Override public void enterAdditiveExpression(MiniJavaParser.AdditiveExpressionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitAdditiveExpression(GrammarParser.AdditiveExpressionContext ctx) { }
+	@Override public void exitAdditiveExpression(MiniJavaParser.AdditiveExpressionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterTerm(GrammarParser.TermContext ctx) { }
+	@Override public void enterTerm(MiniJavaParser.TermContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitTerm(GrammarParser.TermContext ctx) { }
+	@Override public void exitTerm(MiniJavaParser.TermContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterFactor(GrammarParser.FactorContext ctx) { }
+	@Override public void enterFactor(MiniJavaParser.FactorContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitFactor(GrammarParser.FactorContext ctx) { }
+	@Override public void exitFactor(MiniJavaParser.FactorContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterLogicalExpression(GrammarParser.LogicalExpressionContext ctx) { }
+	@Override public void enterLogicalExpression(MiniJavaParser.LogicalExpressionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitLogicalExpression(GrammarParser.LogicalExpressionContext ctx) { }
+	@Override public void exitLogicalExpression(MiniJavaParser.LogicalExpressionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterLogicalFactor(GrammarParser.LogicalFactorContext ctx) { }
+	@Override public void enterLogicalFactor(MiniJavaParser.LogicalFactorContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitLogicalFactor(GrammarParser.LogicalFactorContext ctx) { }
+	@Override public void exitLogicalFactor(MiniJavaParser.LogicalFactorContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterComparison(GrammarParser.ComparisonContext ctx) { }
+	@Override public void enterComparison(MiniJavaParser.ComparisonContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitComparison(GrammarParser.ComparisonContext ctx) { }
+	@Override public void exitComparison(MiniJavaParser.ComparisonContext ctx) { }
 
 	/**
 	 * {@inheritDoc}

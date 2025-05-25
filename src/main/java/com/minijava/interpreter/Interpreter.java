@@ -3,16 +3,16 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
-import com.minijava.antlr.GrammarBaseVisitor;
-import com.minijava.antlr.GrammarParser;
+import com.minijava.antlr.MiniJavaBaseVisitor;
+import com.minijava.antlr.MiniJavaParser;
 
-public class Interpreter extends GrammarBaseVisitor<Object> {
+public class Interpreter extends MiniJavaBaseVisitor<Object> {
 
     private final Scanner scanner = new Scanner(System.in);
     private Map<String, Object> memory = new HashMap<>();
 
     @Override
-    public Object visitDeclaration(GrammarParser.DeclarationContext ctx) {
+    public Object visitDeclaration(MiniJavaParser.DeclarationContext ctx) {
         String varName = ctx.ID().getText();
         if (ctx.getText().startsWith("int")) {
             memory.put(varName, 0);
@@ -23,7 +23,7 @@ public class Interpreter extends GrammarBaseVisitor<Object> {
     }
 
     @Override
-    public Object visitAssignment(GrammarParser.AssignmentContext ctx) {
+    public Object visitAssignment(MiniJavaParser.AssignmentContext ctx) {
         String varName = ctx.ID().getText();
         Object value = visit(ctx.expression());
         memory.put(varName, value);
@@ -31,7 +31,7 @@ public class Interpreter extends GrammarBaseVisitor<Object> {
     }
 
     @Override
-    public Object visitWrite(GrammarParser.WriteContext ctx) {
+    public Object visitWrite(MiniJavaParser.WriteContext ctx) {
         Object value = visit(ctx.expression());
 
         if (ctx.getChild(0).getText().equals("print")) {
@@ -43,7 +43,7 @@ public class Interpreter extends GrammarBaseVisitor<Object> {
     }
 
     @Override
-    public Object visitRead(GrammarParser.ReadContext ctx) {
+    public Object visitRead(MiniJavaParser.ReadContext ctx) {
         String varName = ctx.ID().getText();
         String input = scanner.nextLine();
         
@@ -56,7 +56,7 @@ public class Interpreter extends GrammarBaseVisitor<Object> {
     }
 
     @Override
-    public Object visitIfStatement(GrammarParser.IfStatementContext ctx) {
+    public Object visitIfStatement(MiniJavaParser.IfStatementContext ctx) {
         Boolean condition = (Boolean) visit(ctx.logicalExpression());
         if (condition) {
             visit(ctx.block(0));
@@ -67,7 +67,7 @@ public class Interpreter extends GrammarBaseVisitor<Object> {
     }
     
     @Override
-    public Object visitWhileStatement(GrammarParser.WhileStatementContext ctx) {
+    public Object visitWhileStatement(MiniJavaParser.WhileStatementContext ctx) {
         while ((Boolean) visit(ctx.logicalExpression())) {
             visit(ctx.block());
         }
@@ -75,7 +75,7 @@ public class Interpreter extends GrammarBaseVisitor<Object> {
     }
     
     @Override
-    public Object visitConcatenation(GrammarParser.ConcatenationContext ctx) {
+    public Object visitConcatenation(MiniJavaParser.ConcatenationContext ctx) {
         Object result = visit(ctx.additiveExpression(0));
         for (int i = 1; i < ctx.additiveExpression().size(); i++) {
             Object next = visit(ctx.additiveExpression(i));
@@ -85,7 +85,7 @@ public class Interpreter extends GrammarBaseVisitor<Object> {
     }    
 
     @Override
-    public Object visitAdditiveExpression(GrammarParser.AdditiveExpressionContext ctx) {
+    public Object visitAdditiveExpression(MiniJavaParser.AdditiveExpressionContext ctx) {
         
         if (ctx.STRING() != null) {
             return ctx.STRING().getText().replace("\"", "");
@@ -106,7 +106,7 @@ public class Interpreter extends GrammarBaseVisitor<Object> {
     }
     
     @Override
-    public Object visitTerm(GrammarParser.TermContext ctx) {
+    public Object visitTerm(MiniJavaParser.TermContext ctx) {
         Object result = visit(ctx.factor(0));
         for (int i = 1; i < ctx.factor().size(); i++) {
             String op = ctx.getChild(2 * i - 1).getText();
@@ -121,7 +121,7 @@ public class Interpreter extends GrammarBaseVisitor<Object> {
     }
 
     @Override
-    public Object visitFactor(GrammarParser.FactorContext ctx) {
+    public Object visitFactor(MiniJavaParser.FactorContext ctx) {
         if (ctx.INT() != null) {
             return Integer.parseInt(ctx.INT().getText());
         } else if (ctx.ID() != null) {
@@ -139,7 +139,7 @@ public class Interpreter extends GrammarBaseVisitor<Object> {
     }
 
     @Override
-    public Object visitLogicalExpression(GrammarParser.LogicalExpressionContext ctx) {
+    public Object visitLogicalExpression(MiniJavaParser.LogicalExpressionContext ctx) {
         Object result = visit(ctx.logicalFactor(0));
         for (int i = 1; i < ctx.logicalFactor().size(); i++) {
             String op = ctx.getChild(2 * i - 1).getText();
@@ -154,7 +154,7 @@ public class Interpreter extends GrammarBaseVisitor<Object> {
     }
 
     @Override
-    public Object visitLogicalFactor(GrammarParser.LogicalFactorContext ctx) {
+    public Object visitLogicalFactor(MiniJavaParser.LogicalFactorContext ctx) {
         if (ctx.getChildCount() == 2) {
             return !(Boolean) visit(ctx.getChild(1));
         } else {
@@ -163,7 +163,7 @@ public class Interpreter extends GrammarBaseVisitor<Object> {
     }
 
     @Override
-    public Object visitComparison(GrammarParser.ComparisonContext ctx) {
+    public Object visitComparison(MiniJavaParser.ComparisonContext ctx) {
         Integer left = ((Number) visit(ctx.expression(0))).intValue();
         Integer right = ((Number) visit(ctx.expression(1))).intValue();
         String op = ctx.getChild(1).getText();

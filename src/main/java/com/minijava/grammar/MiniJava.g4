@@ -1,4 +1,4 @@
-grammar Grammar;
+grammar MiniJava;
 
 @header {
 package com.minijava.antlr;

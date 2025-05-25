@@ -2,14 +2,15 @@ package com.minijava;
 
 import org.antlr.v4.runtime.*;
 
-import com.minijava.antlr.GrammarLexer;
-import com.minijava.antlr.GrammarParser;
+import com.minijava.antlr.MiniJavaLexer;
+import com.minijava.antlr.MiniJavaParser;
 import com.minijava.ast.dot.DotGenerator;
 import com.minijava.ast.image.AstImageGenerator;
 import com.minijava.classcheck.ClassVerification;
 import com.minijava.exception.LexerErrorListener;
 import com.minijava.exception.ParserErrorListener;
 import com.minijava.interpreter.Interpreter;
+import com.minijava.semantic.MiniJavaSemantic;
 import com.minijava.tokengenerator.TokenGenerator;
 
 import java.io.File;
@@ -48,19 +49,29 @@ public class Main {
 
         try {
             // Criação do lexer e parser
-            GrammarLexer lexer = new GrammarLexer(CharStreams.fromFileName(selectedFile.getPath())); // gera os tokens a partir do codigo fonte
+            MiniJavaLexer lexer = new MiniJavaLexer(CharStreams.fromFileName(selectedFile.getPath())); // gera os tokens a partir do codigo fonte
 
             lexer.removeErrorListeners();
             lexer.addErrorListener(new LexerErrorListener());
 
             CommonTokenStream tokens = new CommonTokenStream(lexer);
 
-            GrammarParser parser = new GrammarParser(tokens); // Consome os tokens do lexer
+            MiniJavaParser parser = new MiniJavaParser(tokens); // Consome os tokens do lexer
             parser.removeErrorListeners();
             parser.addErrorListener(new ParserErrorListener());
 
             // Parsing do código
-            GrammarParser.ProgramContext tree = parser.program(); // Cria ast
+            MiniJavaParser.ProgramContext tree = parser.program(); // Cria ast
+
+            MiniJavaSemantic semanticAnalyzer = new MiniJavaSemantic();
+            semanticAnalyzer.visit(tree);
+            semanticAnalyzer.printErrors();
+
+            if (!semanticAnalyzer.getSemanticErrors().isEmpty()) {
+                System.out.println("Corrija os erros semanticos antes de continuar");
+                scanner.close();
+                return;
+            }
 
             // AstViewer astViewer = new AstViewer(tree, Arrays.asList(parser.getRuleNames()));
             // astViewer.show();
@@ -71,7 +82,7 @@ public class Main {
                 return;
             }
 
-            System.out.println("Parsing completado");
+            System.out.println("Parsing e analise semantica completado");
 
             DotGenerator dotGen = new DotGenerator(tree);
             dotGen.exportDot("output/dot/ast.dot");

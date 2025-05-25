@@ -1,4 +1,4 @@
-// Generated from src/main/java/com/minijava/grammar/Grammar.g4 by ANTLR 4.13.1
+// Generated from src/main/java/com/minijava/grammar/MiniJava.g4 by ANTLR 4.13.1
 
 package com.minijava.antlr;
 
@@ -12,7 +12,7 @@ import org.antlr.v4.runtime.dfa.DFA;
 import org.antlr.v4.runtime.misc.*;
 
 @SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast", "CheckReturnValue", "this-escape"})
-public class GrammarLexer extends Lexer {
+public class MiniJavaLexer extends Lexer {
 	static { RuntimeMetaData.checkVersion("4.13.1", RuntimeMetaData.VERSION); }
 
 	protected static final DFA[] _decisionToDFA;
@@ -93,13 +93,13 @@ public class GrammarLexer extends Lexer {
 	}
 
 
-	public GrammarLexer(CharStream input) {
+	public MiniJavaLexer(CharStream input) {
 		super(input);
 		_interp = new LexerATNSimulator(this,_ATN,_decisionToDFA,_sharedContextCache);
 	}
 
 	@Override
-	public String getGrammarFileName() { return "Grammar.g4"; }
+	public String getGrammarFileName() { return "MiniJava.g4"; }
 
 	@Override
 	public String[] getRuleNames() { return ruleNames; }

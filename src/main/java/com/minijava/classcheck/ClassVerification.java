@@ -3,7 +3,7 @@ package com.minijava.classcheck;
 
 import java.io.File;
 
-import com.minijava.antlr.GrammarParser.ProgramContext;
+import com.minijava.antlr.MiniJavaParser.ProgramContext;
 
 public class ClassVerification {
 

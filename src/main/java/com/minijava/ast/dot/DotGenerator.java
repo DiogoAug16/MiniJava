@@ -3,7 +3,7 @@ package com.minijava.ast.dot;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.TerminalNode;
 
-import com.minijava.antlr.GrammarParser.ProgramContext;
+import com.minijava.antlr.MiniJavaParser.ProgramContext;
 
 import java.io.BufferedWriter;
 import java.io.File;
