@@ -190,6 +190,16 @@ public interface MiniJavaListener extends ParseTreeListener {
 	 */
 	void exitLogicalFactor(MiniJavaParser.LogicalFactorContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link MiniJavaParser#condition}.
+	 * @param ctx the parse tree
+	 */
+	void enterCondition(MiniJavaParser.ConditionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MiniJavaParser#condition}.
+	 * @param ctx the parse tree
+	 */
+	void exitCondition(MiniJavaParser.ConditionContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link MiniJavaParser#comparison}.
 	 * @param ctx the parse tree
 	 */

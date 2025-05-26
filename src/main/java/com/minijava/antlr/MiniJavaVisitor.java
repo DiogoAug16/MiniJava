@@ -121,6 +121,12 @@ public interface MiniJavaVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitLogicalFactor(MiniJavaParser.LogicalFactorContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link MiniJavaParser#condition}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitCondition(MiniJavaParser.ConditionContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link MiniJavaParser#comparison}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
