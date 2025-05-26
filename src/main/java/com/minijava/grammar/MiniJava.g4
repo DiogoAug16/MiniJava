@@ -41,11 +41,11 @@ write
     ;
 
 ifStatement
-    : 'if' '(' logicalExpression ')' '{' block '}' ('else' '{' block '}')?
+    : 'if' '(' condition ')' '{' block '}' ('else' '{' block '}')?
     ;
 
 whileStatement
-    : 'while' '(' logicalExpression ')' '{' block '}'
+    : 'while' '(' condition ')' '{' block '}'
     ;
 
 block
@@ -81,6 +81,11 @@ logicalExpression
 
 logicalFactor
     : '!'? (comparison | '(' logicalExpression ')')
+    ;
+
+condition
+    : logicalExpression
+    | expression
     ;
 
 comparison

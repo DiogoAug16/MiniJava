@@ -1,0 +1,8 @@
+class TesteLogicalExpression {
+    int x;
+    string s;
+
+    if ((x == s) && (5 > x)) { 
+        print("sla");
+    }
+}

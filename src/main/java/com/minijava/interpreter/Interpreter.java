@@ -7,7 +7,6 @@ import com.minijava.antlr.MiniJavaBaseVisitor;
 import com.minijava.antlr.MiniJavaParser;
 
 public class Interpreter extends MiniJavaBaseVisitor<Object> {
-
     private final Scanner scanner = new Scanner(System.in);
     private Map<String, Object> memory = new HashMap<>();
 
@@ -45,19 +44,35 @@ public class Interpreter extends MiniJavaBaseVisitor<Object> {
     @Override
     public Object visitRead(MiniJavaParser.ReadContext ctx) {
         String varName = ctx.ID().getText();
-        String input = scanner.nextLine();
         
-        if (memory.get(varName) instanceof Integer) {
-            memory.put(varName, Integer.parseInt(input));
+        String input = scanner.nextLine().trim();
+        Object currentValue = memory.get(varName);
+
+        if (input.isEmpty()) {
+            System.err.println("Erro de execução: Nenhuma entrada fornecida para scanf(" + varName + ").");
+            if (currentValue instanceof Integer) {
+                memory.put(varName, 0);
+            } else {
+                memory.put(varName, "");
+            }
         } else {
-            memory.put(varName, input);
+            if (currentValue instanceof Integer) {
+                try {
+                    memory.put(varName, Integer.parseInt(input));
+                } catch (NumberFormatException e) {
+                    System.err.println("Erro de execução: Entrada '" + input + "' inválida para scanf(" + varName + "). Esperado um inteiro.");
+                    memory.put(varName, 0); 
+                }
+            } else {
+                memory.put(varName, input);
+            }
         }
         return null;
     }
 
     @Override
     public Object visitIfStatement(MiniJavaParser.IfStatementContext ctx) {
-        Boolean condition = (Boolean) visit(ctx.logicalExpression());
+        Boolean condition = (Boolean) visit(ctx.condition());
         if (condition) {
             visit(ctx.block(0));
         } else if (ctx.block().size() > 1) {
@@ -68,7 +83,7 @@ public class Interpreter extends MiniJavaBaseVisitor<Object> {
     
     @Override
     public Object visitWhileStatement(MiniJavaParser.WhileStatementContext ctx) {
-        while ((Boolean) visit(ctx.logicalExpression())) {
+        while ((Boolean) visit(ctx.condition())) {
             visit(ctx.block());
         }
         return null;

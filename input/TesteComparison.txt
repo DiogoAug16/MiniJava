@@ -1,0 +1,7 @@
+class TesteComparison {
+    int x;
+    string s;
+    if (x == s) { // comparação int e string inválida
+        print("erro");
+    }
+}

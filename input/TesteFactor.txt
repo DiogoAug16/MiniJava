@@ -1,0 +1,4 @@
+class TesteFactor {
+    int x;
+    x = y; // 'y' não declarada
+}

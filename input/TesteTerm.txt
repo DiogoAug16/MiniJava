@@ -1,0 +1,5 @@
+class TesteTerm {
+    int x;
+    string s;
+    x = x * s; // int * string inválido
+}

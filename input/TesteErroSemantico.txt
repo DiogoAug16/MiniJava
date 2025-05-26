@@ -1,0 +1,14 @@
+class TesteErroSemantico {
+    int x;
+    string y;
+    int x;                // ERRO: variável 'x' já declarada
+    x = "texto";          // ERRO: atribuição de string a int
+    y = 10;               // ERRO: atribuição de int a string
+    z = 5;                // ERRO: variável 'z' não declarada
+    if (x > y) {              // ERRO: condição do if entre tipos incompativeis
+        print("ok");
+    }
+    if (x) {              // ERRO: condição do if não é boolean
+        print("ok");
+    }
+}

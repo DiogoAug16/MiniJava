@@ -1,0 +1,8 @@
+class TesteLogicalFactor {
+    int x;
+    string s;
+
+    if (!(x == s)) { 
+        print("sla");
+    }
+}

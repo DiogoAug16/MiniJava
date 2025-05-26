@@ -2,6 +2,7 @@ class TrianguloPascal {
     int n;
     int i;
     int j;
+    int k;
     int val;
 
     println("Digite o valor para n: ");
