@@ -132,6 +132,8 @@ public class MiniJavaSemantic extends MiniJavaBaseVisitor<String> implements Aut
             String rightFactorType = visit(rightFactorCtx);
 
             if (TYPE_UNDEFINED.equals(rightFactorType)) return TYPE_UNDEFINED;
+            
+            logAction("Operação termo '" + operator + "' realizada");
 
             if (operator.equals("/")) {
                 if (rightFactorCtx.INT() != null && "0".equals(rightFactorCtx.INT().getText())) {
@@ -162,6 +164,14 @@ public class MiniJavaSemantic extends MiniJavaBaseVisitor<String> implements Aut
             }
             for (int i = 0; i < ctx.term().size() - 1; i++) {
                 TerminalNode opNode = (TerminalNode) ctx.getChild((i * 2) + 1);
+                String operator = opNode.getText();
+
+                if ("+".equals(operator)) {
+                    logAction("Operação de adição inteira '+' realizada");
+                } else if ("-".equals(operator)) {
+                    logAction("Operação de subtração inteira '-' realizada");
+                }          
+
                 String rightTermType = visit(ctx.term(i + 1));
 
                 if (TYPE_UNDEFINED.equals(rightTermType)) return TYPE_UNDEFINED;
@@ -186,9 +196,11 @@ public class MiniJavaSemantic extends MiniJavaBaseVisitor<String> implements Aut
             if (TYPE_UNDEFINED.equals(otherType)) return TYPE_UNDEFINED;
 
             if (TYPE_STRING.equals(currentType) || TYPE_STRING.equals(otherType)) {
+                logAction("Operação de concatenação de string '" + operator + "' realizada");
                 currentType = TYPE_STRING;
             } else if (TYPE_INT.equals(currentType) && TYPE_INT.equals(otherType)) {
-                currentType = TYPE_INT;
+                logAction("Operação de adição de inteiros '" + operator + "' realizada");
+                currentType = TYPE_INT; 
             } else {
                 reportError(opNode, "Operação '+' entre tipos incompatíveis para concatenação/adição: '%s' e '%s'. Esperado string ou ambos int.", currentType, otherType);
                 return TYPE_UNDEFINED;
@@ -235,6 +247,7 @@ public class MiniJavaSemantic extends MiniJavaBaseVisitor<String> implements Aut
         if (TYPE_UNDEFINED.equals(baseType)) return TYPE_UNDEFINED;
 
         if (isNegated) {
+            logAction("Operador de negação '!' aplicado");
             if (!TYPE_BOOLEAN.equals(baseType)) {
                 reportError((TerminalNode)ctx.getChild(0), "Operador '!' requer um operando booleano, mas recebeu '%s'", baseType);
                 return TYPE_UNDEFINED;
@@ -256,6 +269,8 @@ public class MiniJavaSemantic extends MiniJavaBaseVisitor<String> implements Aut
 
         for (int i = 0; i < ctx.logicalFactor().size() - 1; i++) {
             TerminalNode opNode = (TerminalNode) ctx.getChild((i * 2) + 1);
+            logAction("Operador lógico '" + opNode.getText() + "' realizado"); 
+            
             String nextFactorType = visit(ctx.logicalFactor(i + 1));
 
             if (TYPE_UNDEFINED.equals(nextFactorType)) return TYPE_UNDEFINED;
