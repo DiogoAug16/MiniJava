@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import com.minijava.antlr.MiniJavaBaseVisitor;
 import com.minijava.antlr.MiniJavaParser;
 import org.antlr.v4.runtime.ParserRuleContext;
@@ -37,7 +36,7 @@ public class MiniJavaSemantic extends MiniJavaBaseVisitor<String> implements Aut
     private void reportError(ParserRuleContext ctx, String format, Object... args) {
         reportError(ctx.getStart(), format, args);
     }
-    
+
     private void reportError(TerminalNode node, String format, Object... args) {
         if (node != null) {
             reportError(node.getSymbol(), format, args);
@@ -71,7 +70,6 @@ public class MiniJavaSemantic extends MiniJavaBaseVisitor<String> implements Aut
     public String visitDeclaration(MiniJavaParser.DeclarationContext ctx) {
         String name = ctx.ID().getText();
         String type = ctx.getChild(0).getText();
-
         if (symbolTable.containsKey(name)) {
             reportError(ctx.ID().getSymbol(), "Variável '%s' já foi declarada.", name);
         } else {
@@ -84,13 +82,11 @@ public class MiniJavaSemantic extends MiniJavaBaseVisitor<String> implements Aut
     @Override
     public String visitAssignment(MiniJavaParser.AssignmentContext ctx) {
         String id = ctx.ID().getText();
-
         if (!symbolTable.containsKey(id)) {
             reportError(ctx.ID().getSymbol(), "Variável '%s' não foi declarada antes do uso.", id);
         } else {
             String varType = symbolTable.get(id);
             String exprType = visit(ctx.expression());
-
             if (!TYPE_UNDEFINED.equals(exprType) && !varType.equals(exprType)) {
                 reportError(ctx, "Atribuição incompatível: variável '%s' é do tipo '%s' mas expressão é do tipo '%s'", id, varType, exprType);
             }
@@ -101,9 +97,7 @@ public class MiniJavaSemantic extends MiniJavaBaseVisitor<String> implements Aut
 
     @Override
     public String visitFactor(MiniJavaParser.FactorContext ctx) {
-        if (ctx.INT() != null) {
-            return TYPE_INT;
-        }
+        if (ctx.INT() != null) return TYPE_INT;
         if (ctx.ID() != null) {
             String id = ctx.ID().getText();
             if (!symbolTable.containsKey(id)) {
@@ -113,9 +107,7 @@ public class MiniJavaSemantic extends MiniJavaBaseVisitor<String> implements Aut
             logAction("Uso de variável '" + id + "'");
             return symbolTable.get(id);
         }
-        if (ctx.expression() != null) {
-            return visit(ctx.expression());
-        }
+        if (ctx.expression() != null) return visit(ctx.expression());
         reportError(ctx, "Fator desconhecido ou inválido.");
         return TYPE_UNDEFINED;
     }
@@ -148,17 +140,17 @@ public class MiniJavaSemantic extends MiniJavaBaseVisitor<String> implements Aut
         }
         return currentType;
     }
-    
+
     @Override
     public String visitAdditiveExpression(MiniJavaParser.AdditiveExpressionContext ctx) {
-        if (ctx.STRING() != null) return TYPE_STRING;
+        if (ctx.STRING() != null) return TYPE_STRING; 
 
         String currentType = visit(ctx.term(0));
         if (TYPE_UNDEFINED.equals(currentType)) return TYPE_UNDEFINED;
 
-        if (ctx.term().size() > 1) {
+        if (ctx.term().size() > 1) { 
             if (!TYPE_INT.equals(currentType)) {
-                TerminalNode firstOpNode = (TerminalNode) ctx.getChild(1);
+                TerminalNode firstOpNode = (TerminalNode) ctx.getChild(1); 
                 reportError(ctx.term(0), "Operação '%s' requer operando esquerdo do tipo '%s', mas recebeu '%s'", firstOpNode.getText(), TYPE_INT, currentType);
                 return TYPE_UNDEFINED;
             }
@@ -173,7 +165,6 @@ public class MiniJavaSemantic extends MiniJavaBaseVisitor<String> implements Aut
                 }          
 
                 String rightTermType = visit(ctx.term(i + 1));
-
                 if (TYPE_UNDEFINED.equals(rightTermType)) return TYPE_UNDEFINED;
                 if (!TYPE_INT.equals(rightTermType)) {
                     reportError(ctx.term(i + 1), "Operação '%s' requer operando direito do tipo '%s', mas recebeu '%s'", opNode.getText(), TYPE_INT, rightTermType);
@@ -181,7 +172,7 @@ public class MiniJavaSemantic extends MiniJavaBaseVisitor<String> implements Aut
                 }
             }
         }
-        return currentType;
+        return currentType; 
     }
 
     @Override
@@ -191,8 +182,9 @@ public class MiniJavaSemantic extends MiniJavaBaseVisitor<String> implements Aut
 
         for (int i = 0; i < ctx.additiveExpression().size() - 1; i++) {
             TerminalNode opNode = (TerminalNode) ctx.getChild((i * 2) + 1);
-            String otherType = visit(ctx.additiveExpression(i + 1));
+            String operator = opNode.getText();
 
+            String otherType = visit(ctx.additiveExpression(i + 1));
             if (TYPE_UNDEFINED.equals(otherType)) return TYPE_UNDEFINED;
 
             if (TYPE_STRING.equals(currentType) || TYPE_STRING.equals(otherType)) {
@@ -208,11 +200,6 @@ public class MiniJavaSemantic extends MiniJavaBaseVisitor<String> implements Aut
         }
         return currentType;
     }
-    
-    @Override
-    public String visitExpression(MiniJavaParser.ExpressionContext ctx) {
-        return visit(ctx.concatenation());
-    }
 
     @Override
     public String visitComparison(MiniJavaParser.ComparisonContext ctx) {
@@ -220,7 +207,7 @@ public class MiniJavaSemantic extends MiniJavaBaseVisitor<String> implements Aut
         String rightType = visit(ctx.expression(1));
 
         if (TYPE_UNDEFINED.equals(leftType) || TYPE_UNDEFINED.equals(rightType)) return TYPE_UNDEFINED;
-        
+
         TerminalNode opNode = (TerminalNode) ctx.getChild(1);
         if (!leftType.equals(rightType)) {
             reportError(opNode, "Comparação entre tipos incompatíveis: '%s' e '%s'", leftType, rightType);
@@ -234,13 +221,13 @@ public class MiniJavaSemantic extends MiniJavaBaseVisitor<String> implements Aut
     public String visitLogicalFactor(MiniJavaParser.LogicalFactorContext ctx) {
         String baseType;
         boolean isNegated = ctx.getChild(0) instanceof TerminalNode && "!".equals(ctx.getChild(0).getText());
-
-        if (ctx.comparison() != null) {
+        
+        if (ctx.comparison() != null) { 
             baseType = visit(ctx.comparison());
-        } else if (ctx.logicalExpression() != null) {
+        } else if (ctx.logicalExpression() != null) { 
             baseType = visit(ctx.logicalExpression());
         } else {
-            reportError(ctx, "Fator lógico inválido: estrutura interna não reconhecida.");
+            reportError(ctx, "Fator lógico inválido: esperado 'comparison' ou '(logicalExpression)'.");
             return TYPE_UNDEFINED;
         }
 
@@ -252,9 +239,9 @@ public class MiniJavaSemantic extends MiniJavaBaseVisitor<String> implements Aut
                 reportError((TerminalNode)ctx.getChild(0), "Operador '!' requer um operando booleano, mas recebeu '%s'", baseType);
                 return TYPE_UNDEFINED;
             }
-            return TYPE_BOOLEAN;
+            return TYPE_BOOLEAN; 
         }
-        return baseType;
+        return baseType; 
     }
 
     @Override
@@ -272,7 +259,6 @@ public class MiniJavaSemantic extends MiniJavaBaseVisitor<String> implements Aut
             logAction("Operador lógico '" + opNode.getText() + "' realizado"); 
             
             String nextFactorType = visit(ctx.logicalFactor(i + 1));
-
             if (TYPE_UNDEFINED.equals(nextFactorType)) return TYPE_UNDEFINED;
             if (!TYPE_BOOLEAN.equals(nextFactorType)) {
                 reportError(ctx.logicalFactor(i + 1), "Operador lógico '%s' requer operandos booleanos, mas o operando direito é '%s'", opNode.getText(), nextFactorType);
@@ -281,9 +267,9 @@ public class MiniJavaSemantic extends MiniJavaBaseVisitor<String> implements Aut
         }
         return TYPE_BOOLEAN;
     }
-    
+
     private void checkConditionIsBoolean(ParserRuleContext conditionCtx, String conditionType, String constructName) {
-        if (TYPE_UNDEFINED.equals(conditionType)) return;
+        if (TYPE_UNDEFINED.equals(conditionType)) return; 
         if (!TYPE_BOOLEAN.equals(conditionType)) {
             reportError(conditionCtx, "A condição do '%s' deve ser do tipo '%s', mas é '%s'", constructName, TYPE_BOOLEAN, conditionType);
         }
@@ -291,7 +277,7 @@ public class MiniJavaSemantic extends MiniJavaBaseVisitor<String> implements Aut
 
     @Override
     public String visitIfStatement(MiniJavaParser.IfStatementContext ctx) {
-        String conditionType = visit(ctx.condition());
+        String conditionType = visit(ctx.condition()); 
         checkConditionIsBoolean(ctx.condition(), conditionType, "if");
         
         visit(ctx.block(0));
@@ -303,12 +289,12 @@ public class MiniJavaSemantic extends MiniJavaBaseVisitor<String> implements Aut
 
     @Override
     public String visitWhileStatement(MiniJavaParser.WhileStatementContext ctx) {
-        String conditionType = visit(ctx.condition());
+        String conditionType = visit(ctx.condition()); 
         checkConditionIsBoolean(ctx.condition(), conditionType, "while");
         visit(ctx.block());
         return null;
     }
-    
+
     @Override
     public String visitRead(MiniJavaParser.ReadContext ctx) {
         String id = ctx.ID().getText();
@@ -320,9 +306,4 @@ public class MiniJavaSemantic extends MiniJavaBaseVisitor<String> implements Aut
         return null;
     }
 
-    @Override
-    public String visitWrite(MiniJavaParser.WriteContext ctx) {
-        visit(ctx.expression()); 
-        return null;
-    }
 }
