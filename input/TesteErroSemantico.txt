@@ -7,6 +7,7 @@ class TesteErroSemantico {
     z = 5;                // ERRO: variável 'z' não declarada
     x = 5/0;
     x = x * y;
+    x = x + y;
     if (x > y) {              // ERRO: condição do if entre tipos incompativeis
         print("ok");
     }
