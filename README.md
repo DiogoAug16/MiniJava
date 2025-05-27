@@ -50,7 +50,7 @@ O objetivo principal deste projeto é ***desenvolver um compilador funcional*** 
 Execute o comando abaixo:
 
 ```bash
-java -Xmx500m -cp "lib/antlr-4.13.1-complete.jar" org.antlr.v4.Tool -Dlanguage=Java -visitor -o src/main/java/com/minijava/antlr src/main/java/com/minijava/grammar/Grammar.g4
+java -Xmx500m -cp "lib/antlr-4.13.1-complete.jar" org.antlr.v4.Tool -Dlanguage=Java -visitor -o src/main/java/com/minijava/antlr src/main/java/com/minijava/grammar/MiniJava.g4
 ```
 
 - Isso gera os arquivos necessários dentro da pasta antlr.
@@ -123,12 +123,11 @@ class Main {
 
 ```bash
 MiniJava
-├─ docs
-│  └─ banner_minijava.png
+├─ docs                           # pasta docs para o readme
 ├─ input                          # Pasta onde ficam os arquivos de teste para rodar o programa
 ├─ output                         # Pasta output de arquivos gerados pelo programa como tokens, dots e imagens.     
 │  ├───dot
-│  │   └───pngs
+│  │   └───svgs
 │  └───tokens
 ├─ lib                            # Biblioteca ANTLR
 │  └─ antlr-4.13.1-complete.jar
@@ -146,7 +145,7 @@ MiniJava
                │  │  └─ DotGenerator.java
                │  ├─ image        # Gerador de imagem do ast a partir do dot
                │  │  └─ AstImageGenerator.java
-               │  └─ viewer       # Visualizador da tree ast
+               │  └─ viewer       # Visualizador da tree ast 
                │     └─ AstViewer.java
                ├─ classcheck      # Verificação da classe se o nome condiz com o nome do arquivo
                │  └─ ClassVerification.java
@@ -154,7 +153,7 @@ MiniJava
                │  ├─ LexerErrorListener.java
                │  └─ ParserErrorListener.java
                ├─ grammar         # Pasta da gramatica do projeto
-               │  └─ Grammar.g4
+               │  └─ MiniJava.g4
                ├─ interpreter     # Interpretador da linguagem
                │  └─ Interpreter.java
                ├─ Main.java
