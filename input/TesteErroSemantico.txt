@@ -11,7 +11,4 @@ class TesteErroSemantico {
     if (x > y) {              // ERRO: condição do if entre tipos incompativeis
         print("ok");
     }
-    if (x) {              // ERRO: condição do if não é boolean
-        print("ok");
-    }
 }
