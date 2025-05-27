@@ -97,8 +97,8 @@ public class Main {
                 dotGen.exportDot("output/dot/ast.dot");
 
                 String dotFilePath = "output/dot/ast.dot";
-                String pngFilePath = "output/dot/pngs/ast.png";
-                AstImageGenerator.generatePngFromDot(dotFilePath, pngFilePath);
+                String svgFilePath = "output/dot/svgs/ast.svg";
+                AstImageGenerator.generateSvgFromDot(dotFilePath, svgFilePath);
 
                 Interpreter interpreter = new Interpreter();
                 interpreter.visit(tree);
