@@ -5,6 +5,8 @@ class TesteErroSemantico {
     x = "texto";          // ERRO: atribuição de string a int
     y = 10;               // ERRO: atribuição de int a string
     z = 5;                // ERRO: variável 'z' não declarada
+    x = 5/0;
+    x = x * y;
     if (x > y) {              // ERRO: condição do if entre tipos incompativeis
         print("ok");
     }
