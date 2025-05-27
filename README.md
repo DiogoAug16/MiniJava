@@ -39,6 +39,7 @@ O objetivo principal deste projeto é ***desenvolver um compilador funcional*** 
 
 - ***Analise lexica***: identificar tokens a partir de um arquivo-fonte, gerando saídas no formato `<Tipo do Token, Lexema, Linha, Coluna>`, com logs detalhados e mensagens claras de erro.
 - ***Analise sintatica***: validar a estrutura do código-fonte de acordo com a gramática definida, gerando uma `AST (árvore sintática abstrata)` e emitindo mensagens de erro intuitivas.
+- ***Analise semântica***: verifica se o código-fonte faz sentido dentro das regras da linguagem, garantindo que variáveis sejam declaradas antes do uso, tipos sejam compatíveis e identificadores sejam usados corretamente em seus escopos. Utiliza a AST e uma tabela de símbolos para rastrear declarações e usos. Erros devem ser reportados com mensagens claras e precisas, incluindo linha, coluna e descrição do problema.
 - ***Execução de testes*** com programas como:
     - Geração do **Triângulo de Pascal** (para testar laços e estruturas de repetição);
     - **Classificação de triângulos** (para testar expressões lógicas e condicionais aninhadas).
