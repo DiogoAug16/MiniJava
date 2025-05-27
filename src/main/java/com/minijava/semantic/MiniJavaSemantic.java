@@ -1,386 +1,227 @@
 package com.minijava.semantic;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import com.minijava.antlr.MiniJavaBaseVisitor;
 import com.minijava.antlr.MiniJavaParser;
-import org.antlr.v4.runtime.ParserRuleContext;
-import org.antlr.v4.runtime.Token;
+import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.tree.TerminalNode;
 
 public class MiniJavaSemantic extends MiniJavaBaseVisitor<Object> implements AutoCloseable {
     private final Map<String, Type> symbolTable = new HashMap<>();
     private final List<String> semanticErrors = new ArrayList<>();
-    private final SemanticLogger logger;
+    private final SemanticLogger logger = new SemanticLogger();
 
-    public MiniJavaSemantic() {
-        this.logger = new SemanticLogger();
-    }
-
-    public List<String> getSemanticErrors() {
-        return semanticErrors;
-    }
-
-    private void reportError(Token token, String format, Object... args) {
-        String msg = String.format(format, args);
-        semanticErrors.add(String.format("[Erro Semântico] Linha %d: %s", token.getLine(), msg));
-    }
-
-    private void reportError(ParserRuleContext ctx, String format, Object... args) {
-        reportError(ctx.getStart(), format, args);
-    }
-
-    private void reportError(TerminalNode node, String format, Object... args) {
-        if (node != null) {
-            reportError(node.getSymbol(), format, args);
-        } else {
-            String msg = String.format(format, args);
-            semanticErrors.add(String.format("[Erro Semântico] Linha ?: %s (Nó Terminal nulo)", msg));
-        }
-    }
+    public List<String> getSemanticErrors() { return semanticErrors; }
 
     public void printErrors() {
-        if (semanticErrors.isEmpty()) {
-            System.out.println("Análise semântica concluída com sucesso, sem erros.");
+        if (!semanticErrors.isEmpty()) semanticErrors.forEach(System.out::println);
+    }
+
+    private void log(String msg) { logger.log("[SEMÂNTICO] " + msg); }
+
+    private void error(Token token, String format, Object... args) {
+        semanticErrors.add(String.format("[Erro Semântico] Linha %d: %s", token.getLine(), String.format(format, args)));
+    }
+
+    private void error(ParserRuleContext ctx, String format, Object... args) {
+        error(ctx.getStart(), format, args);
+    }
+
+    private void error(TerminalNode node, String format, Object... args) {
+        if (node != null) error(node.getSymbol(), format, args);
+        else semanticErrors.add(String.format("[Erro Semântico] Linha ?: %s (Terminal nulo)", String.format(format, args)));
+    }
+
+    private Type asType(Object result) {
+        return result instanceof Type ? (Type) result : UndefinedType.getInstance();
+    }
+
+    private Type safeVisit(ParserRuleContext ctx) {
+        return asType(visit(ctx));
+    }
+
+    private Type getDeclaredType(String name, Token token) {
+        if (!symbolTable.containsKey(name)) {
+            error(token, "Variável '%s' não declarada.", name);
+            return UndefinedType.getInstance();
+        }
+        return symbolTable.get(name);
+    }
+
+    private void declareVariable(String name, Type type, Token token) {
+        if (symbolTable.containsKey(name)) {
+            error(token, "Variável '%s' já foi declarada.", name);
         } else {
-            System.out.println("Erros encontrados na análise semântica:");
-            semanticErrors.forEach(System.out::println);
+            symbolTable.put(name, type);
+            log("Declarada: '" + name + "' como '" + type.getName() + "'");
         }
     }
 
-    private void logAction(String msg) {
-        if (logger != null) {
-            logger.log("[LOG SEMÂNTICO] " + msg);
+    private Type checkBinaryOperation(Type left, Type right, String op, TerminalNode opNode, Type expected, String context) {
+        if (left == UndefinedType.getInstance() || right == UndefinedType.getInstance()) return UndefinedType.getInstance();
+        if (!expected.isEquivalentTo(left) || !expected.isEquivalentTo(right)) {
+            error(opNode, "Operação '%s' em %s requer '%s', mas recebeu '%s' e '%s'",
+                    op, context, expected.getName(), left.getName(), right.getName());
+            return UndefinedType.getInstance();
         }
+        return expected;
     }
 
     @Override
     public void close() {
-        if (this.logger != null) {
-            this.logger.close();
-        }
-    }
-
-    private Type asType(Object result) {
-        if (result instanceof Type) {
-            return (Type) result;
-        }
-
-        return UndefinedType.getInstance();
+        logger.close();
     }
 
     @Override
     public Object visitDeclaration(MiniJavaParser.DeclarationContext ctx) {
         String name = ctx.ID().getText();
-        TerminalNode typeNode = (TerminalNode) ctx.getChild(0);
-        String typeKeyword = ctx.getChild(0).getText();
-        Type varType;
-
-        switch (typeKeyword) {
-            case "int":
-                varType = IntType.getInstance();
-                break;
-            case "string":
-                varType = StringType.getInstance();
-                break;
-            default:
-                reportError(typeNode.getSymbol(), "Tipo de declaração desconhecido: '%s'", typeKeyword);
-                varType = UndefinedType.getInstance();
-        }
-
-        if (symbolTable.containsKey(name)) {
-            reportError(ctx.ID().getSymbol(), "Variável '%s' já foi declarada.", name);
-        } else {
-            symbolTable.put(name, varType);
-            logAction("Variável '" + name + "' declarada como '" + varType.getName() + "'");
-        }
+        String typeText = ctx.getChild(0).getText();
+        Type type = switch (typeText) {
+            case "int" -> IntType.getInstance();
+            case "string" -> StringType.getInstance();
+            default -> {
+                error(ctx, "Tipo desconhecido: '%s'", typeText);
+                yield UndefinedType.getInstance();
+            }
+        };
+        declareVariable(name, type, ctx.ID().getSymbol());
         return null;
     }
 
     @Override
     public Object visitAssignment(MiniJavaParser.AssignmentContext ctx) {
-        String id = ctx.ID().getText();
-        if (!symbolTable.containsKey(id)) {
-            reportError(ctx.ID().getSymbol(), "Variável '%s' não foi declarada antes do uso.", id);
-            visit(ctx.expression());
-        } else {
-            Type varType = symbolTable.get(id);
-            Type exprType = asType(visit(ctx.expression()));
+        String name = ctx.ID().getText();
+        Type varType = getDeclaredType(name, ctx.ID().getSymbol());
+        Type exprType = safeVisit(ctx.expression());
 
-            if (exprType != UndefinedType.getInstance() && !varType.isEquivalentTo(exprType)) {
-                reportError(ctx, "Atribuição incompatível: variável '%s' é do tipo '%s' mas expressão é do tipo '%s'", id, varType.getName(), exprType.getName());
-            }
-            logAction("Atribuição à variável '" + id + "' do tipo " + varType.getName() + " com expressão do tipo " + exprType.getName());
+        if (!varType.isEquivalentTo(exprType) && exprType != UndefinedType.getInstance()) {
+            error(ctx, "Atribuição incompatível: '%s' é '%s', expressão é '%s'", name, varType.getName(), exprType.getName());
         }
+        log("Atribuição: '" + name + "' com '" + exprType.getName() + "'");
         return null;
     }
 
     @Override
     public Object visitFactor(MiniJavaParser.FactorContext ctx) {
-        if (ctx.INT() != null) {
-            return IntType.getInstance();
-        }
+        if (ctx.INT() != null) return IntType.getInstance();
+
         if (ctx.ID() != null) {
-            String id = ctx.ID().getText();
-            if (!symbolTable.containsKey(id)) {
-                reportError(ctx.ID().getSymbol(), "Uso de variável não declarada: '%s'", id);
-                return UndefinedType.getInstance();
-            }
-            logAction("Uso de variável '" + id + "' do tipo " + symbolTable.get(id).getName());
-            return symbolTable.get(id);
+            String name = ctx.ID().getText();
+            Type type = getDeclaredType(name, ctx.ID().getSymbol());
+            log("Uso: '" + name + "' do tipo '" + type.getName() + "'");
+            return type;
         }
-        if (ctx.expression() != null) {
-            return visit(ctx.expression());
-        }
-        reportError(ctx, "Fator desconhecido ou inválido.");
+
+        if (ctx.expression() != null) return safeVisit(ctx.expression());
+
+        error(ctx, "Fator inválido.");
         return UndefinedType.getInstance();
     }
 
     @Override
     public Object visitTerm(MiniJavaParser.TermContext ctx) {
-        Type currentType = asType(visit(ctx.factor(0)));
-        if (currentType == UndefinedType.getInstance()) return UndefinedType.getInstance();
+        Type left = safeVisit(ctx.factor(0));
+        for (int i = 1; i < ctx.factor().size(); i++) {
+            TerminalNode opNode = (TerminalNode) ctx.getChild(i * 2 - 1);
+            String op = opNode.getText();
+            Type right = safeVisit(ctx.factor(i));
 
-        for (int i = 0; i < ctx.factor().size() - 1; i++) {
-            TerminalNode opNode = (TerminalNode) ctx.getChild((i * 2) + 1);
-            String operator = opNode.getText();
-            MiniJavaParser.FactorContext rightFactorCtx = ctx.factor(i + 1);
-            Type rightFactorType = asType(visit(rightFactorCtx));
-
-            if (rightFactorType == UndefinedType.getInstance()) return UndefinedType.getInstance();
-            
-            logAction("Operação termo '" + operator + "' entre '" + currentType.getName() + "' e '" + rightFactorType.getName() + "'");
-
-            if (operator.equals("/")) {
-                if (rightFactorCtx.INT() != null && "0".equals(rightFactorCtx.INT().getText())) {
-                    reportError(opNode, "Divisão por zero literal detectada.");
-                    return UndefinedType.getInstance();
-                }
-            }
-
-            if (!(currentType instanceof IntType) || !(rightFactorType instanceof IntType)) {
-                reportError(opNode, "Operações '%s' requerem operandos do tipo '%s', mas recebeu '%s' e '%s'", operator, IntType.getInstance().getName(), currentType.getName(), rightFactorType.getName());
+            if ("/".equals(op) && ctx.factor(i).INT() != null && "0".equals(ctx.factor(i).INT().getText())) {
+                error(opNode, "Divisão por zero literal.");
                 return UndefinedType.getInstance();
             }
-            currentType = IntType.getInstance();
+
+            log("Operação termo '" + op + "' entre '" + left.getName() + "' e '" + right.getName() + "'");
+            left = checkBinaryOperation(left, right, op, opNode, IntType.getInstance(), "termo");
         }
-        return currentType;
+        return left;
     }
-    
+
     @Override
     public Object visitAdditiveExpression(MiniJavaParser.AdditiveExpressionContext ctx) {
-        if (ctx.STRING() != null) {
-            logAction("Expressão aditiva é um literal STRING");
-            return StringType.getInstance();
-        }
-
+        if (ctx.STRING() != null) return StringType.getInstance();
         if (ctx.term().isEmpty()) {
-            reportError(ctx, "Expressão aditiva inválida, falta termo.");
+            error(ctx, "Expressão aditiva sem termos.");
             return UndefinedType.getInstance();
         }
 
-        Type currentType = asType(visit(ctx.term(0)));
-        if (currentType == UndefinedType.getInstance()) return UndefinedType.getInstance();
-
-        if (ctx.term().size() == 1 && ctx.getChildCount() == 1) {
-             return currentType;
-        }
-
-        for (int i = 0; i < ctx.term().size() - 1; i++) {
-            TerminalNode opNode = (TerminalNode) ctx.getChild((i * 2) + 1);
-            String operator = opNode.getText();
-            Type rightTermType = asType(visit(ctx.term(i + 1)));
-
-            if (rightTermType == UndefinedType.getInstance()) return UndefinedType.getInstance();
-
-            logAction("Operação aditiva '" + operator + "' entre '" + currentType.getName() + "' e '" + rightTermType.getName() + "'");
-            
-            if (!(currentType instanceof IntType) || !(rightTermType instanceof IntType)) {
-                reportError(opNode, "Operação '%s' em expressão aditiva requer operandos do tipo '%s', mas recebeu '%s' e '%s'.", operator, IntType.getInstance().getName(), currentType.getName(), rightTermType.getName());
+        Type left = safeVisit(ctx.term(0));
+        for (int i = 1; i < ctx.term().size(); i++) {
+            TerminalNode opNode = (TerminalNode) ctx.getChild(i * 2 - 1);
+            String op = opNode.getText();
+            Type right = safeVisit(ctx.term(i));
+            if ("+".equals(op)) {
+                log("Adição: '" + left.getName() + "' + '" + right.getName() + "'");
+            }  else if ("-".equals(op)) {
+                log("Subtração: '" + left.getName() + "' - '" + right.getName() + "'");
+            } else {
+                error(opNode, "Operador desconhecido '%s' em expressão aditiva", op);
                 return UndefinedType.getInstance();
             }
-            currentType = IntType.getInstance();
+            left = checkBinaryOperation(left, right, op, opNode, IntType.getInstance(), "expressão aditiva");
         }
-        return currentType;
+        return left;
     }
 
     @Override
     public Object visitConcatenation(MiniJavaParser.ConcatenationContext ctx) {
-        Type currentType = asType(visit(ctx.additiveExpression(0)));
-        if (currentType == UndefinedType.getInstance()) return UndefinedType.getInstance();
+        Type current = safeVisit(ctx.additiveExpression(0));
+        for (int i = 1; i < ctx.additiveExpression().size(); i++) {
+            TerminalNode opNode = (TerminalNode) ctx.getChild(i * 2 - 1);
+            Type right = safeVisit(ctx.additiveExpression(i));
+            log("Concatenação '+' entre '" + current.getName() + "' e '" + right.getName() + "'");
 
-        if (ctx.additiveExpression().size() == 1) {
-            return currentType;
-        }
-
-        for (int i = 0; i < ctx.additiveExpression().size() - 1; i++) {
-            TerminalNode opNode = (TerminalNode) ctx.getChild((i * 2) + 1);
-
-            Type otherType = asType(visit(ctx.additiveExpression(i + 1)));
-            if (otherType == UndefinedType.getInstance()) return UndefinedType.getInstance();
-
-            logAction("Operação de concatenação/adição '+' entre '" + currentType.getName() + "' e '" + otherType.getName() + "'");
-
-            if (currentType instanceof StringType || otherType instanceof StringType) {
-                currentType = StringType.getInstance();
-            }
-            else if (currentType instanceof IntType && otherType instanceof IntType) {
-                currentType = IntType.getInstance();
-            }
+            if (current instanceof StringType || right instanceof StringType)
+                current = StringType.getInstance();
+            else if (current instanceof IntType && right instanceof IntType)
+                current = IntType.getInstance();
             else {
-                reportError(opNode, "Operação '+' entre tipos incompatíveis para concatenação/adição: '%s' e '%s'. Esperado string ou ambos int.", currentType.getName(), otherType.getName());
+                error(opNode, "Concatenação '+' inválida entre '%s' e '%s'", current.getName(), right.getName());
                 return UndefinedType.getInstance();
             }
         }
-        return currentType;
+        return current;
     }
 
     @Override
     public Object visitComparison(MiniJavaParser.ComparisonContext ctx) {
-        Type leftType = asType(visit(ctx.expression(0)));
-        Type rightType = asType(visit(ctx.expression(1)));
+        Type left = safeVisit(ctx.expression(0));
+        Type right = safeVisit(ctx.expression(1));
+        TerminalNode opNode = (TerminalNode) ctx.getChild(1);
 
-        if (leftType == UndefinedType.getInstance() || rightType == UndefinedType.getInstance()) {
+        log("Comparação '" + opNode.getText() + "' entre '" + left.getName() + "' e '" + right.getName() + "'");
+
+        boolean valid = (left instanceof IntType && right instanceof IntType)
+                     || (left instanceof StringType && right instanceof StringType);
+
+        if (!valid) {
+            error(opNode, "Comparação inválida entre '%s' e '%s'", left.getName(), right.getName());
             return UndefinedType.getInstance();
         }
-
-        TerminalNode opNode = (TerminalNode) ctx.getChild(1);
-        logAction("Comparação '" + opNode.getText() + "' entre '" + leftType.getName() + "' e '" + rightType.getName() + "'");
-
-        boolean compatible = false;
-        if (leftType instanceof IntType && rightType instanceof IntType) {
-            compatible = true;
-        } else if (leftType instanceof StringType && rightType instanceof StringType) {
-            compatible = true;
-        }
-
-        if (!compatible) {
-             reportError(opNode, "Comparação entre tipos incompatíveis: '%s' e '%s'. Apenas int com int ou string com string.", leftType.getName(), rightType.getName());
-             return UndefinedType.getInstance();
-        }
-        
         return BooleanType.getInstance();
     }
 
     @Override
     public Object visitLogicalFactor(MiniJavaParser.LogicalFactorContext ctx) {
-        Type baseType;
-        boolean isNegated = ctx.getChild(0) instanceof TerminalNode && "!".equals(ctx.getChild(0).getText());
-        
-        ParserRuleContext innerContext = ctx.comparison() != null ? ctx.comparison() : ctx.logicalExpression();
+        boolean isNegated = ctx.getChildCount() == 2 && "!".equals(ctx.getChild(0).getText());
+        Type baseType = safeVisit((ParserRuleContext) (isNegated ? ctx.getChild(1) : ctx.getChild(0)));
 
-        if (innerContext != null) {
-            baseType = asType(visit(isNegated ? ctx.getChild(1) : ctx.getChild(0)));
-        } else {
-            reportError(ctx, "Fator lógico inválido: esperado 'comparison' ou '(logicalExpression)'.");
+        if (isNegated && !(baseType instanceof BooleanType)) {
+            error((TerminalNode) ctx.getChild(0), "Operador '!' requer booleano, recebeu '%s'", baseType.getName());
             return UndefinedType.getInstance();
         }
-
-        if (baseType == UndefinedType.getInstance()) return UndefinedType.getInstance();
-
-        if (isNegated) {
-            logAction("Operador de negação '!' aplicado a '" + baseType.getName() + "'");
-            if (!(baseType instanceof BooleanType)) {
-                reportError((TerminalNode)ctx.getChild(0), "Operador '!' requer um operando booleano, mas recebeu '%s'", baseType.getName());
-                return UndefinedType.getInstance();
-            }
-            return BooleanType.getInstance(); 
-        }
-        return baseType; 
+        return baseType;
     }
 
     @Override
     public Object visitLogicalExpression(MiniJavaParser.LogicalExpressionContext ctx) {
-        Type currentType = asType(visit(ctx.logicalFactor(0)));
-        if (currentType == UndefinedType.getInstance()) return UndefinedType.getInstance();
-
-        if (!(currentType instanceof BooleanType)) {
-            reportError(ctx.logicalFactor(0), "Expressão lógica requer valores booleanos, mas o primeiro fator é '%s'", currentType.getName());
-            return UndefinedType.getInstance();
+        Type current = safeVisit(ctx.logicalFactor(0));
+        for (int i = 1; i < ctx.logicalFactor().size(); i++) {
+            TerminalNode opNode = (TerminalNode) ctx.getChild(i * 2 - 1);
+            Type right = safeVisit(ctx.logicalFactor(i));
+            log("Operação lógica entre '" + current.getName() + "' e '" + right.getName() + "'");
+            current = checkBinaryOperation(current, right, opNode.getText(), opNode, BooleanType.getInstance(), "expressão lógica");
         }
-
-        for (int i = 0; i < ctx.logicalFactor().size() - 1; i++) {
-            TerminalNode opNode = (TerminalNode) ctx.getChild((i * 2) + 1);
-            logAction("Operador lógico '" + opNode.getText() + "' realizado"); 
-            
-            Type nextFactorType = asType(visit(ctx.logicalFactor(i + 1)));
-            if (nextFactorType == UndefinedType.getInstance()) return UndefinedType.getInstance();
-
-            if (!(nextFactorType instanceof BooleanType)) {
-                reportError(ctx.logicalFactor(i + 1), "Operador lógico '%s' requer operandos booleanos, mas o operando direito é '%s'", opNode.getText(), nextFactorType.getName());
-                return UndefinedType.getInstance();
-            }
-        }
-        return BooleanType.getInstance();
-    }
-    
-    @Override
-    public Object visitCondition(MiniJavaParser.ConditionContext ctx) {
-
-        if (ctx.logicalExpression() != null) {
-            Type type = asType(visit(ctx.logicalExpression()));
-            if (!(type instanceof BooleanType) && type != UndefinedType.getInstance()) {
-                 reportError(ctx, "Condição baseada em expressão lógica deve ser do tipo booleano, mas foi '%s'.", type.getName());
-                 return UndefinedType.getInstance();
-            }
-            return type;
-        }
-
-        if (ctx.expression() != null) {
-            Type type = asType(visit(ctx.expression()));
-
-            if (!(type instanceof BooleanType) && type != UndefinedType.getInstance()) {
-                 reportError(ctx, "Condição não pode ser do tipo '%s'. Deve ser uma expressão booleana.", type.getName());
-                 return UndefinedType.getInstance();
-            }
-            return type;
-        }
-        reportError(ctx, "Estrutura de condição inválida.");
-        return UndefinedType.getInstance();
-    }
-
-    @Override
-    public Object visitIfStatement(MiniJavaParser.IfStatementContext ctx) {
-        logAction("Analisando if statement");
-        visit(ctx.condition()); 
-        
-        visit(ctx.block(0));
-        if (ctx.block().size() > 1 && ctx.block(1) != null) {
-            logAction("Analisando else block do if statement");
-            visit(ctx.block(1));
-        }
-        return null;
-    }
-
-    @Override
-    public Object visitWhileStatement(MiniJavaParser.WhileStatementContext ctx) {
-        logAction("Analisando while statement");
-        visit(ctx.condition()); 
-        visit(ctx.block());
-        return null;
-    }
-
-    @Override
-    public Object visitRead(MiniJavaParser.ReadContext ctx) {
-        String id = ctx.ID().getText();
-        if (!symbolTable.containsKey(id)) {
-            reportError(ctx.ID().getSymbol(), "Variável '%s' não foi declarada antes do uso (scanf).", id);
-        } else {
-            Type varType = symbolTable.get(id);
-            logAction("Leitura (scanf) para variável '" + id + "' do tipo '" + varType.getName() + "'");
-        }
-        return null;
-    }
-
-    @Override
-    public Object visitWrite(MiniJavaParser.WriteContext ctx) {
-        logAction("Analisando instrução de escrita (" + ctx.getChild(0).getText() + ")");
-        Type exprType = asType(visit(ctx.expression())); 
-        if (exprType != UndefinedType.getInstance()){
-             logAction("Expressão em '" + ctx.getChild(0).getText() + "' é do tipo '" + exprType.getName() + "'");
-        }
-        return null;
+        return current;
     }
 }
