@@ -16,8 +16,8 @@
   <img src="https://img.shields.io/badge/ANTLR-4.13.1-ff69b4?logo=antlr" alt="ANTLR" />
   <img src="https://img.shields.io/badge/Graphviz-12.2.1-8A2BE2?logo=graphviz" alt="Graphviz" />
   <img src="https://img.shields.io/badge/Java-11%2B-blue?logo=java" alt="Java" />
-  <img src="https://img.shields.io/github/stars/DiogoAug16/MiniJava?style=social" alt="GitHub Stars" />
   <img src="https://img.shields.io/github/issues/DiogoAug16/MiniJava?color=orange" alt="GitHub Issues" />
+  <img src="https://img.shields.io/badge/Gera-Código_de_Três_Endereços-orange" alt="TAC Generation" />
 </p>
 
 
@@ -43,6 +43,7 @@ O objetivo principal deste projeto é ***desenvolver um compilador funcional*** 
 - ***Execução de testes*** com programas como:
     - Geração do **Triângulo de Pascal** (para testar laços e estruturas de repetição);
     - **Classificação de triângulos** (para testar expressões lógicas e condicionais aninhadas).
+- ***Geração de Código Intermediário***: Traduz a AST para uma representação linear de baixo nível, o **Código de Três Endereços (TAC)**. Esta representação simplifica o processo de otimização e a tradução para o código final.
 
 ## <img src="docs/images/Rocket.png" alt="Rocket" width="25" height="25" /> Como compilar e rodar
 
@@ -54,11 +55,11 @@ Execute o comando abaixo:
 java -Xmx500m -cp "lib/antlr-4.13.1-complete.jar" org.antlr.v4.Tool -Dlanguage=Java -visitor -o src/main/java/com/minijava/antlr src/main/java/com/minijava/grammar/MiniJava.g4
 ```
 
-- Isso gera os arquivos necessários dentro da pasta antlr.
+- Isso gera os arquivos necessários dentro da pasta `antlr`.
 
 ### 2. Compilar o projeto
 
-Compile todos os arquivos .java:
+Compile todos os arquivos `.java`:
 
 ```bash
 mvn clean package
@@ -68,7 +69,7 @@ ou
 mvn clean install
 ```
 
-- Os .class serão gerados dentro da pasta target/.
+- Os .class serão gerados dentro da pasta `target/`.
 
 ### 3. Rodar o interpretador
 
@@ -78,7 +79,17 @@ Execute o programa:
 mvn exec:java
 ```
 
-- O interpretador irá ler o arquivo input/triangulo_pascal.txt (ou outro arquivo configurado) e interpretar os comandos.
+- O interpretador irá ler o arquivo `input/triangulo_pascal.txt` (ou outro arquivo configurado) e interpretar os comandos.
+
+### 4. Gerar o Código TAC
+
+Para gerar o arquivo `.tac` em vez de interpretar o código, execute o Maven com o argumento `--gerar-tac`:
+
+```bash
+mvn exec:java -D exec.args="--gerar-tac"
+```
+- O programa irá solicitar a escolha de um arquivo de entrada.
+- Após a execução, um arquivo `programa_fonte.tac` será gerado em `output/tac/`.
 
 ## <img src="docs/images/Abacus2.gif" alt="Abacus" width="40" height="auto" /> Expressões
 
@@ -91,8 +102,8 @@ A linguagem suporta:
 
 ## <img src="docs/images/Input Latin Uppercase.png" alt="Input Latin Uppercase" width="25" height="25" /> Tokens
 
-- **ID**: identificadores ([a-zA-Z_][a-zA-Z0-9_]*)
-- **INT**: inteiros ([0-9]+)
+- **ID**: identificadores (`[a-zA-Z_][a-zA-Z0-9_]*`)
+- **INT**: inteiros (`[0-9]+`)
 - **STRING**: cadeias de caracteres entre aspas (`"texto"`)
 - **WS**: espaços e quebras de linha (ignorado)
 - **COMMENT**: comentários de linha iniciados com `//` (ignorados)
