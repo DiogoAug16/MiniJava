@@ -9,11 +9,14 @@ import com.minijava.classcheck.ClassVerification;
 import com.minijava.exception.LexerErrorListener;
 import com.minijava.exception.ParserErrorListener;
 import com.minijava.interpreter.Interpreter;
-import com.minijava.semantic.MiniJavaSemantic; 
+import com.minijava.semantic.MiniJavaSemantic;
+import com.minijava.tac.TACGenerator;
+import com.minijava.tac.TACInstruction;
 import com.minijava.tokengenerator.TokenGenerator;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Scanner;
 
 public class Main {
@@ -100,8 +103,31 @@ public class Main {
                 String svgFilePath = "output/dot/svgs/ast.svg";
                 AstImageGenerator.generateSvgFromDot(dotFilePath, svgFilePath);
 
-                Interpreter interpreter = new Interpreter();
-                interpreter.visit(tree);
+                if (args.length > 0 && args[0].equals("--gerar-tac")) {
+                    TACGenerator tacGen = new TACGenerator();
+                    tacGen.visit(tree);
+
+                    File tacDir = new File("output/tac");
+                    if (!tacDir.exists()) {
+                        boolean created = tacDir.mkdirs();
+                        if (!created) {
+                            System.err.println("[Erro] Não foi possível criar o diretório output/tac.");
+                            return;
+                        }
+                    }
+
+                    try (PrintWriter writer = new PrintWriter("output/tac/programa_fonte.tac")) {
+                        for (TACInstruction instr : tacGen.getInstructions()) {
+                            writer.println(instr.toString());
+                        }
+                        System.out.println("Código intermediário TAC gerado em: output/tac/programa_fonte.tac");
+                    } catch (IOException e) {
+                        System.err.println("[Erro na geração do código intermediário] " + e.getMessage());
+                    }
+                } else {
+                    Interpreter interpreter = new Interpreter();
+                    interpreter.visit(tree);
+                }
 
                 TokenGenerator.generate(tokens, "output/tokens/tokens.txt", lexer.getVocabulary());
             }
