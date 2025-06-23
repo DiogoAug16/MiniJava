@@ -22,11 +22,6 @@ public class TACGenerator extends MiniJavaBaseVisitor<TACOperand> {
     }
 
     @Override
-    public TACOperand visitExpression(MiniJavaParser.ExpressionContext ctx) {
-        return visit(ctx.concatenation());
-    }
-
-    @Override
     public TACOperand visitConcatenation(MiniJavaParser.ConcatenationContext ctx) {
         TACOperand left = visit(ctx.additiveExpression(0));
         for (int i = 1; i < ctx.additiveExpression().size(); i++) {
@@ -263,28 +258,4 @@ public class TACGenerator extends MiniJavaBaseVisitor<TACOperand> {
         instructions.add(new TACInstruction(endLabel.toString() + ":", null, null, null));
         return null;
     }
-
-    @Override
-    public TACOperand visitBlock(MiniJavaParser.BlockContext ctx) {
-        for (MiniJavaParser.StatementContext stmt : ctx.statement()) {
-            visit(stmt);
-        }
-        return null;
-    }
-
-    @Override
-    public TACOperand visitStatements(MiniJavaParser.StatementsContext ctx) {
-        for (MiniJavaParser.StatementContext stmt : ctx.statement()) {
-            visit(stmt);
-        }
-        return null;
-    }
-
-    @Override
-    public TACOperand visitProgram(MiniJavaParser.ProgramContext ctx) {
-        visit(ctx.declarations());
-        visit(ctx.statements());
-        return null;
-    }
 }
-
