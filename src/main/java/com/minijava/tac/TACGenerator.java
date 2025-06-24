@@ -27,7 +27,7 @@ public class TACGenerator extends MiniJavaBaseVisitor<TACOperand> {
         for (int i = 1; i < ctx.additiveExpression().size(); i++) {
             TACOperand right = visit(ctx.additiveExpression(i));
             TACOperand temp = newTemp();
-            instructions.add(new TACInstruction("+", temp, left, right));
+            instructions.add(new TACInstruction("concat", temp, left, right));
             left = temp;
         }
         return left;
