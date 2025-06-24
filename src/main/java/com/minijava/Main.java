@@ -124,6 +124,11 @@ public class Main {
                     } catch (IOException e) {
                         System.err.println("[Erro na geração do código intermediário] " + e.getMessage());
                     }
+
+                    if (args.length > 1 && args[1].equals("--gerar-llvm")) {
+                
+                    }
+
                 } else {
                     Interpreter interpreter = new Interpreter();
                     interpreter.visit(tree);
