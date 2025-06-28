@@ -51,8 +51,14 @@ O objetivo principal deste projeto é ***desenvolver um compilador funcional*** 
 
 Execute o comando abaixo:
 
+- Para windows:
 ```bash
-java -Xmx500m -cp "lib/antlr-4.13.1-complete.jar" org.antlr.v4.Tool -Dlanguage=Java -visitor -o src/main/java/com/minijava/antlr src/main/java/com/minijava/grammar/MiniJava.g4
+java -Xmx500m -cp "lib/antlr-4.13.1-complete.jar" org.antlr.v4.Tool -Dlanguage=Java -visitor -o src/main/java/com/minijava/antlr src/main/java/com/minijava/antlr/MiniJava.g4
+```
+
+- Para Linux:
+```bash
+java -Xmx500m -cp lib/antlr-4.13.1-complete.jar org.antlr.v4.Tool -Dlanguage=Java -visitor src/main/java/com/minijava/antlr/MiniJava.g4
 ```
 
 - Isso gera os arquivos necessários dentro da pasta `antlr`.
@@ -90,6 +96,34 @@ mvn exec:java -D exec.args="--gerar-tac"
 ```
 - O programa irá solicitar a escolha de um arquivo de entrada.
 - Após a execução, um arquivo `programa_fonte.tac` será gerado em `output/tac/`.
+
+### 5. Gerar o código LLVM
+
+Para gerar o arquivo `.ll` a partir do `.tac`, execute o Maven com o argumento `--gerar-tac --gerar-llvm`:
+
+```bash
+mvn exec:java -D exec.args="--gerar-tac --gerar-llvm"
+```
+- O programa irá solicitar a escolha de um arquivo de entrada.
+- Após a execução, um arquivo `programa_fonte.ll` será gerado em `output/llvm/` e seu `programa_fonte.exe` será gerado em `output/programa/`.
+
+### 6. Rodar o executavel
+
+Após gerar o executável, você pode executá-lo diretamente no seu sistema:
+
+- No Windows:
+
+```bash
+output\programa\programa_fonte.exe
+``` 
+
+- No Linux:
+  
+```bash
+./output/programa/programa_fonte
+```
+
+- Certifique-se que o arquivo tenha permissão de execução (chmod +x no Linux).
 
 ## <img src="docs/images/Abacus2.gif" alt="Abacus" width="40" height="auto" /> Expressões
 
