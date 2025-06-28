@@ -1,4 +1,4 @@
-class Teste3 {
+class TesteCondicoes {
     int x;
     scanf(x);
     

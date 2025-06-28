@@ -1,5 +1,0 @@
-class TesteDivZero {
-    int x;
-    x = 5/0;
-    print(x);
-}

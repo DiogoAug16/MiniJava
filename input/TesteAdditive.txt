@@ -1,5 +1,0 @@
-class TesteAdditive {
-    int x;
-    string s;
-    x = x + s; // int + string incompatível
-}

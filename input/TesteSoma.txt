@@ -1,0 +1,15 @@
+class TesteSoma {
+    int a;
+    int b;
+    int x;
+
+    println("Digite o valor da variavel 'a'");
+    scanf(a);
+
+    println("Digite o valor da variavel 'b'");
+    scanf(b);
+
+    x = a+b;
+
+    println(x);
+}

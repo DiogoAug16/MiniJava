@@ -1,4 +1,4 @@
-class Teste2{
+class TesteLoop{
     int x;
     x = 0;
 

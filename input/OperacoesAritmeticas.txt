@@ -1,4 +1,4 @@
-class Teste { 
+class OperacoesAritmeticas { 
     int n;
     int a;
     int b;
