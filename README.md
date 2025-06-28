@@ -171,41 +171,50 @@ class Main {
 
 ```bash
 MiniJava
-├─ docs                           # pasta docs para o readme
-├─ input                          # Pasta onde ficam os arquivos de teste para rodar o programa
-├─ output                         # Pasta output de arquivos gerados pelo programa como tokens, dots e imagens.     
-│  ├───dot
-│  │   └───svgs
-│  └───tokens
-├─ lib                            # Biblioteca ANTLR
+├─ docs                                         # pasta docs para guardar algumas imagens
+│  └─ images
+├─ input                                        # Pasta onde ficam os arquivos de teste para rodar o programa
+├─ lib                                          # Biblioteca ANTLR
 │  └─ antlr-4.13.1-complete.jar
 ├─ LICENSE
 ├─ pom.xml
 ├─ README.md
+├─ runtime                                      # Codigos em C que auxiliam no llvm
 └─ src
    └─ main
       └─ java
          └─ com
-            └─ antlrjavacompiler
-               ├─ antlr           # Lexer, Parser, Listener e Visitor gerados
-               ├─ ast             # Pasta de arquivos que manipulam ast
-               │  ├─ dot          # Gerador dot
+            └─ minijava
+               ├─ antlr                         # Lexer, Parser, Listener e Visitor gerados
+               │  ├─ MiniJava.g4
+               ├─ ast                           # Pasta de arquivos que manipulam ast
+               │  ├─ dot                        # Gerador dot
                │  │  └─ DotGenerator.java
-               │  ├─ image        # Gerador de imagem do ast a partir do dot
+               │  ├─ image                      # Gerador de imagem do ast a partir do dot
                │  │  └─ AstImageGenerator.java
-               │  └─ viewer       # Visualizador da tree ast 
+               │  └─ viewer                     # Visualizador da tree ast 
                │     └─ AstViewer.java
-               ├─ classcheck      # Verificação da classe se o nome condiz com o nome do arquivo
+               ├─ classcheck                    # Verificação da classe se o nome condiz com o nome do arquivo
                │  └─ ClassVerification.java
-               ├─ exception       # Tratamento de erros personalizados
+               ├─ exception                     # Tratamento de erros personalizados
                │  ├─ LexerErrorListener.java
                │  └─ ParserErrorListener.java
-               ├─ grammar         # Pasta da gramatica do projeto
-               │  └─ MiniJava.g4
-               ├─ interpreter     # Interpretador da linguagem
+               ├─ flags                         # Flags usado no Main
+               │  └─ MainFlags.java
+               ├─ interpreter                   # Interpretador da linguagem
                │  └─ Interpreter.java
+               ├─ llvm                          # Gerador dee llvm a partir do tac
+               │  └─ LLVMGenerator.java
                ├─ Main.java
-               └─ tokengenerator  # Gerador de tokens já formatado
+               ├─ semantic                      # Analisador semantico
+               │  ├─ MiniJavaSemantic.java
+               │  ├─ SemanticLogger.java
+               │  └─ Type.java
+               ├─ tac                           # Gerador do codigo de tres endereços
+               │  ├─ TACGenerator.java
+               │  ├─ TACInstruction.java
+               │  └─ TACOperand.java
+               └─ tokengenerator                # Gerador de tokens já formatado
                   └─ TokenGenerator.java
 
 ```
