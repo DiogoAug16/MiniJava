@@ -8,7 +8,7 @@ import com.minijava.ast.image.AstImageGenerator;
 import com.minijava.classcheck.ClassVerification;
 import com.minijava.exception.LexerErrorListener;
 import com.minijava.exception.ParserErrorListener;
-import com.minijava.generateflags.MainHelper;
+import com.minijava.flags.MainFlags;
 
 import com.minijava.semantic.MiniJavaSemantic;
 import com.minijava.tokengenerator.TokenGenerator;
@@ -101,7 +101,7 @@ public class Main {
                 String svgFilePath = "output/dot/svgs/ast.svg";
                 AstImageGenerator.generateSvgFromDot(dotFilePath, svgFilePath);
 
-                MainHelper.generateTacAndLlvm(args, tree);
+                MainFlags.generateTacAndLlvm(args, tree);
 
                 TokenGenerator.generate(tokens, "output/tokens/tokens.txt", lexer.getVocabulary());
             }
