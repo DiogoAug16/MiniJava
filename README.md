@@ -33,6 +33,8 @@
 
 - Graphviz 12.2.1+ instalado
 
+- LLVM 20.1.0+ instalado
+
 ## <img src="docs/images/Flame.png" alt="Lightning" height="30" /> Objetivo do Projeto
 
 O objetivo principal deste projeto é ***desenvolver um compilador funcional*** como requisito obrigatório para aprovação na disciplina de Compiladores. O compilador deve ser capaz de processar uma linguagem definida por uma gramática própria e realizar:
