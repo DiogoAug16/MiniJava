@@ -94,7 +94,21 @@ public class MainHelper {
                         System.err.println("[Erro] Falha ao linkar e gerar o executável final.");
                         return;
                     }
-                    System.out.println("Programa executável gerado em: output/programa/programa_fonte.exe");
+
+                    // Para outros sistemas operacionais
+                    if (!runCommand("clang",
+                            "-Wno-override-module",
+                            "output/llvm/programa_fonte.ll",
+                            "output/runtime/concat.o",
+                            "output/runtime/itoa.o",
+                            "-o",
+                            "output/programa/programa_fonte",
+                            "-llegacy_stdio_definitions")) {
+                        System.err.println("[Erro] Falha ao linkar e gerar o executável final.");
+                        return;
+                    }
+                    
+                    System.out.println("Programa executável gerado em: output/programa/programa_fonte");
 
                 } catch (IOException | InterruptedException e) {
                     System.err.println("[Erro ao executar comandos clang] " + e.getMessage());
