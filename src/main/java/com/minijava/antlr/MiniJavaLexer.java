@@ -1,4 +1,4 @@
-// Generated from src/main/java/com/minijava/grammar/MiniJava.g4 by ANTLR 4.13.1
+// Generated from src/main/java/com/minijava/antlr/MiniJava.g4 by ANTLR 4.13.1
 
 package com.minijava.antlr;
 
