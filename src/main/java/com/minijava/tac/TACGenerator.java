@@ -5,59 +5,66 @@ import com.minijava.antlr.MiniJavaBaseVisitor;
 import com.minijava.antlr.MiniJavaParser;
 
 public class TACGenerator extends MiniJavaBaseVisitor<TACOperand> {
-    private List<TACInstruction> instructions = new ArrayList<>();
-    private int tempCount = 0;
-    private int labelCount = 0;
+    private List<TACInstruction> instructions = new ArrayList<>(); // Lista de instruções TAC geradas
+    private int tempCount = 0;  // Contador de temporários
+    private int labelCount = 0; // Contador de labels
 
+    // Gera um novo operando temporário (_t0, _t1, ...)
     private TACOperand newTemp() {
         return TACOperand.temporary(tempCount++);
     }
 
+    // Gera um novo rotulo (L0, L1, ...)
     private TACOperand newLabel() {
         return TACOperand.label(labelCount++);
     }
 
+    // Retorna a lista de instruções TAC geradas
     public List<TACInstruction> getInstructions() {
         return instructions;
     }
 
+    // Concatenação de expressões (concat a, b, "c")
     @Override
     public TACOperand visitConcatenation(MiniJavaParser.ConcatenationContext ctx) {
         List<TACOperand> args = new ArrayList<>();
         TACOperand temp = newTemp();
 
         for (var additive : ctx.additiveExpression()) {
-            args.add(visit(additive));
+            args.add(visit(additive)); // Visita cada expressão somável e adiciona à lista
         }
 
         if (args.size() == 1) {
-            return args.get(0);
+            return args.get(0); // Não precisa de concat se houver apenas 1
         }
         
         instructions.add(new TACInstruction("concat", temp, args));
         return temp;
     }
     
+    // Expressão aditiva: a + b - c
     @Override
     public TACOperand visitAdditiveExpression(MiniJavaParser.AdditiveExpressionContext ctx) {
         if (ctx.STRING() != null) {
+            // Retorna um literal string se presente
             return TACOperand.literal(ctx.STRING().getText(), TACOperand.LiteralType.STRING);
         }
     
-        TACOperand left = visit(ctx.term(0));
+        TACOperand left = visit(ctx.term(0)); // Visita primeiro termo
         for (int i = 1; i < ctx.term().size(); i++) {
-            TACOperand right = visit(ctx.term(i));
-            String op = ctx.getChild(2 * i - 1).getText();
+            TACOperand right = visit(ctx.term(i)); // Visita termos subsequentes
+            String op = ctx.getChild(2 * i - 1).getText(); // Pega o operador entre os termos
             TACOperand temp = newTemp();
-            instructions.add(new TACInstruction(op, temp, left, right));
-            left = temp;
+            instructions.add(new TACInstruction(op, temp, left, right)); // Gera instrução TAC
+            left = temp; // Atualiza valor acumulado
         }
         return left;
     }
 
+    // Expressão de multiplicação/divisão: a * b / c
     @Override
     public TACOperand visitTerm(MiniJavaParser.TermContext ctx) {
-        TACOperand left = visit(ctx.factor(0));
+        TACOperand left = visit(ctx.factor(0)); // Visita primeiro fator
         for (int i = 1; i < ctx.factor().size(); i++) {
             TACOperand right = visit(ctx.factor(i));
             String op = ctx.getChild(2 * i - 1).getText();
@@ -68,6 +75,7 @@ public class TACGenerator extends MiniJavaBaseVisitor<TACOperand> {
         return left;
     }
 
+    // Fatores podem ser inteiros, identificadores ou expressões entre parênteses
     @Override
     public TACOperand visitFactor(MiniJavaParser.FactorContext ctx) {
         if (ctx.INT() != null) {
@@ -79,14 +87,7 @@ public class TACGenerator extends MiniJavaBaseVisitor<TACOperand> {
         }
     }
 
-    @Override
-    public TACOperand visitCondition(MiniJavaParser.ConditionContext ctx) {
-        if (ctx.logicalExpression() != null) {
-            return visit(ctx.logicalExpression());
-        }
-        return visit(ctx.expression());
-    }
-
+    // Gera instruções TAC para uma condição if/while
     private void visitCondition(MiniJavaParser.ConditionContext ctx, TACOperand trueLabel, TACOperand falseLabel) {
         if (ctx.logicalExpression() != null) {
             visitLogicalExpression(ctx.logicalExpression(), trueLabel, falseLabel);
@@ -97,19 +98,7 @@ public class TACGenerator extends MiniJavaBaseVisitor<TACOperand> {
         }
     }
 
-    @Override
-    public TACOperand visitLogicalExpression(MiniJavaParser.LogicalExpressionContext ctx) {
-        TACOperand left = visit(ctx.logicalFactor(0));
-        for (int i = 1; i < ctx.logicalFactor().size(); i++) {
-            TACOperand right = visit(ctx.logicalFactor(i));
-            String op = ctx.getChild(2 * i - 1).getText();
-            TACOperand temp = newTemp();
-            instructions.add(new TACInstruction(op, temp, left, right));
-            left = temp;
-        }
-        return left;
-    }
-
+    // Avaliação de expressões lógicas (&&, ||)
     private void visitLogicalExpression(MiniJavaParser.LogicalExpressionContext ctx, TACOperand trueLabel, TACOperand falseLabel) {
         if (ctx.logicalFactor().size() == 1) {
             visitLogicalFactor(ctx.logicalFactor(0), trueLabel, falseLabel);
@@ -135,24 +124,7 @@ public class TACGenerator extends MiniJavaBaseVisitor<TACOperand> {
         }
     }
 
-    @Override
-    public TACOperand visitLogicalFactor(MiniJavaParser.LogicalFactorContext ctx) {
-        TACOperand expr;
-        if (ctx.comparison() != null) {
-            expr = visit(ctx.comparison());
-        } else {
-            expr = visit(ctx.logicalExpression());
-        }
-
-        if (ctx.getText().startsWith("!")) {
-            TACOperand temp = newTemp();
-            instructions.add(new TACInstruction("!", temp, expr, null));
-            return temp;
-        }
-
-        return expr;
-    }
-
+    // Fator lógico, pode ser negação, comparação ou subexpressão lógica
     private void visitLogicalFactor(MiniJavaParser.LogicalFactorContext ctx, TACOperand trueLabel, TACOperand falseLabel) {
         if (ctx.getText().startsWith("!")) {
             visitLogicalExpression(ctx.logicalExpression(), falseLabel, trueLabel);
@@ -163,15 +135,7 @@ public class TACGenerator extends MiniJavaBaseVisitor<TACOperand> {
         }
     }
 
-    @Override
-    public TACOperand visitComparison(MiniJavaParser.ComparisonContext ctx) {
-        TACOperand left = visit(ctx.expression(0));
-        TACOperand right = visit(ctx.expression(1));
-        TACOperand temp = newTemp();
-        instructions.add(new TACInstruction(ctx.getChild(1).getText(), temp, left, right));
-        return temp;
-    }
-
+    // Comparações binárias (==, !=, <, >, <=, >=)
     private void visitComparison(MiniJavaParser.ComparisonContext ctx, TACOperand trueLabel, TACOperand falseLabel) {
         TACOperand left = visit(ctx.expression(0));
         TACOperand right = visit(ctx.expression(1));
@@ -180,6 +144,7 @@ public class TACGenerator extends MiniJavaBaseVisitor<TACOperand> {
         instructions.add(new TACInstruction("goto", falseLabel, null, null));
     }
 
+    // Atribuição: id := expr
     @Override
     public TACOperand visitAssignment(MiniJavaParser.AssignmentContext ctx) {
         TACOperand id = new TACOperand(TACOperand.Type.IDENTIFIER, ctx.ID().getText());
@@ -188,6 +153,7 @@ public class TACGenerator extends MiniJavaBaseVisitor<TACOperand> {
         return null;
     }
 
+    // Leitura: read id
     @Override
     public TACOperand visitRead(MiniJavaParser.ReadContext ctx) {
         TACOperand id = new TACOperand(TACOperand.Type.IDENTIFIER, ctx.ID().getText());
@@ -195,14 +161,16 @@ public class TACGenerator extends MiniJavaBaseVisitor<TACOperand> {
         return null;
     }
 
+    // Escrita: print/println expr
     @Override
     public TACOperand visitWrite(MiniJavaParser.WriteContext ctx) {
         TACOperand value = visit(ctx.expression());
-        String func = ctx.getStart().getText();
+        String func = ctx.getStart().getText(); // print ou println
         instructions.add(new TACInstruction(func, value, null, null));
         return null;
     }
 
+    // Estrutura condicional if/else
     @Override
     public TACOperand visitIfStatement(MiniJavaParser.IfStatementContext ctx) {
         TACOperand trueLabel = newLabel();
@@ -212,12 +180,12 @@ public class TACGenerator extends MiniJavaBaseVisitor<TACOperand> {
         visitCondition(ctx.condition(), trueLabel, falseLabel);
 
         instructions.add(new TACInstruction(trueLabel.toString() + ":", null, null, null));
-        visit(ctx.block(0));
+        visit(ctx.block(0)); // Bloco do if
 
         if (ctx.block().size() > 1) {
             instructions.add(new TACInstruction("goto", endLabel, null, null));
             instructions.add(new TACInstruction(falseLabel.toString() + ":", null, null, null));
-            visit(ctx.block(1));
+            visit(ctx.block(1)); // Bloco do else
             instructions.add(new TACInstruction("goto", endLabel, null, null));
             instructions.add(new TACInstruction(endLabel.toString() + ":", null, null, null));
         } else {
@@ -227,6 +195,7 @@ public class TACGenerator extends MiniJavaBaseVisitor<TACOperand> {
         return null;
     }
 
+    // Estrutura de repetição while
     @Override
     public TACOperand visitWhileStatement(MiniJavaParser.WhileStatementContext ctx) {
         TACOperand beginLabel = newLabel();
@@ -237,7 +206,7 @@ public class TACGenerator extends MiniJavaBaseVisitor<TACOperand> {
         visitCondition(ctx.condition(), trueLabel, endLabel);
 
         instructions.add(new TACInstruction(trueLabel.toString() + ":", null, null, null));
-        visit(ctx.block());
+        visit(ctx.block()); // Corpo do while
         instructions.add(new TACInstruction("goto", beginLabel, null, null));
         instructions.add(new TACInstruction(endLabel.toString() + ":", null, null, null));
 
